@@ -1,0 +1,19 @@
+id=sword-farming-1;
+name=$metal sword tree;
+position=[]0,0,0;
+world=NEWWORLD/NEWWORLD.ZEN;
+vobVisual=null;
+vobPhysical=0;
+vobPosition=[]0,0,0;
+vobRotation=[]0,0,0;
+triggerDistance=100;
+actionDistance=300;
+price=20;
+time=2;
+avaible=4;
+require={}
+ITMW_1H_SPECIAL_04|1
+;
+resources={}
+ITMW_SCHWERT|1,
+;

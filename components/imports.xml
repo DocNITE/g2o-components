@@ -1,0 +1,4 @@
+<server>
+	<import src="mining-system/imports.xml"/>
+	<import src="stamina-system/imports.xml"/>
+</server>
