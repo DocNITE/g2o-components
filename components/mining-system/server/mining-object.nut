@@ -47,16 +47,6 @@ class MiningObject extends SharedMiningObject {
     static function onPacket(pid, packet) {}
 }
 
-// TEST
-local testGatch = MiningObject();
-testGatch.id = "sword-farming";
-testGatch.name = "mining sword"
-testGatch.position = [0,0,0];
-testGatch.vobVisual = "MIN_ORE_BIG_V1.3DS";
-testGatch.require = [["ITMW_1H_SPECIAL_04", MiningRequireType.InHand]];
-testGatch.resources = [["ITMW_SCHWERT", 2]];
-MiningObject.getAllObjects().push(testGatch);
-// ...
 addEventHandler ("onPlayerJoin", function (pid) {
     foreach (obj in MiningObject.getAllObjects()) {
         obj.sync(pid);

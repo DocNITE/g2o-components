@@ -21,6 +21,8 @@ class SharedMiningObject {
     // Vob rotation
     vobRotation = [0,0,0];
 
+    // Play animation when player gathering
+    animation = "T_PLUNDER";
     // Distance, where we can interact with object
     triggerDistance = 100;
     // Distance, where we can see action button

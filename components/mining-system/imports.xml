@@ -1,8 +1,4 @@
 <server>
-  	<!-- Development! -->
-	<script src="client/debug/main.nut" type="client" />
-	<script src="server/debug/main.nut" type="server" />
-
 	<!-- Shared side -->
 	<script src="shared/packet-id.nut" type="shared" />
 	<script src="shared/mining-parser.nut" type="shared" />
@@ -11,4 +7,9 @@
 	<script src="client/mining-object.nut" type="client" />
 	<!-- Server side -->
 	<script src="server/mining-object.nut" type="server" />
+	<script src="server/mining-system.nut" type="server" />
+
+	<!-- Development! -->
+	<script src="client/debug/main.nut" type="client" />
+	<script src="server/debug/main.nut" type="server" />
 </server>

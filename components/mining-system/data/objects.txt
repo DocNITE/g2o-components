@@ -6,6 +6,7 @@ vobVisual=null;
 vobPhysical=0;
 vobPosition=[]0,0,0;
 vobRotation=[]0,0,0;
+animation=T_PLUNDER;
 triggerDistance=100;
 actionDistance=300;
 price=20;
