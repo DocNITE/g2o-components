@@ -4,12 +4,14 @@
 	<script src="server/debug/main.nut" type="server" />
 
 	<!-- Shared side -->
-	<script src="shared/events.nut" type="shared" />
 	<script src="shared/packet-id.nut" type="shared" />
 	<script src="shared/stamina-data.nut" type="shared" />
 	<!-- Client side -->
+	<script src="client/events.nut" type="client" />
 	<script src="client/stamina-data.nut" type="client" />
+	<script src="client/stamina-system.nut" type="client" />
 	<!-- Server side -->
+	<script src="server/events.nut" type="server" />
 	<script src="server/stamina-data.nut" type="server" />
 	<script src="server/stamina-system.nut" type="server" />
 </server>

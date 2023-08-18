@@ -1,0 +1,2 @@
+// params: {StaminaData}
+addEvent("onStaminaChanged");

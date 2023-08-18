@@ -1,31 +1,54 @@
+/**
+ * @public
+ * @description stamina contain data for specific player
+ */
 class StaminaData extends SharedStaminaData {
-    // Local data id (like character name)
+    /**
+     * @protected
+     * @description local database id for specific player
+     */
     owner = "";
-    // Player Id
+
+    /**
+     * @protected
+     * @description player id
+     */
     ownerId = -1;
 
     constructor() {
         getAllData().push(this);
     }
 
+    /**
+     * @public
+     * @description description
+     */
     function setValue(val) {
         if (!canDrain)
             return;
 
-        value = clamp(val, maxValue);
+        value = clamp(val, 0, maxValue);
         sync();
     }
 
+    /**
+     * @public
+     * @description description
+     */
     function setMaxValue(val) {
-        maxValue = clamp(value, val);
+        maxValue = val;
 
         if (!canDrain)
             return;
 
-        value = clamp(value, maxValue);
+        value = clamp(value, 0, maxValue);
         sync();
     }
 
+    /**
+     * @private
+     * @description synchronize stamina data on player's client
+     */
     function sync() {
         if (ownerId == -1 || !isPlayerConnected(ownerId))
             return;
@@ -40,6 +63,10 @@ class StaminaData extends SharedStaminaData {
     static function onPacket(pid, packet) {}
 }
 
+/**
+ * @private
+ * @description load stamina data for specific player. If it's doesn't exist - he create a new data
+ */
 addEventHandler ("onStaminaDataRequest", function (ownerId, owner) {
     foreach (value in StaminaData.getAllData()) {
         if (value.owner == owner) {
@@ -55,6 +82,10 @@ addEventHandler ("onStaminaDataRequest", function (ownerId, owner) {
     callEvent("onStaminaDataSaveRequest");
 });
 
+/**
+ * @private
+ * @description load all stamina data from database
+ */
 addEventHandler ("onStaminaDataLoadRequest", function () {
     try
     {
@@ -80,6 +111,10 @@ addEventHandler ("onStaminaDataLoadRequest", function () {
     catch (errorMsg) {}
 });
 
+/**
+ * @private
+ * @description save all stamina data into database
+ */
 addEventHandler ("onStaminaDataSaveRequest", function () {
     local fileWrite = file("components/stamina-system/data/db.txt", "w");
     foreach (value in StaminaData.getAllData()) {
@@ -88,15 +123,20 @@ addEventHandler ("onStaminaDataSaveRequest", function () {
     fileWrite.close();
 });
 
-// events
+/**
+ * @private
+ */
 addEventHandler ("onPacket", StaminaData.onPacket);
 
-// Mmm...
-local function clamp(value, maxValue) {
+/**
+ * @private
+ * @description well, we might to move it in something library
+ */
+local function clamp(value, minValue, maxValue) {
     if (value > maxValue)
         return maxValue;
+    else if (value < minValue)
+        return minValue;
     else
         return value;
 }
-
-//TODO: Make global loading data (and dont destroy when player exit from game)

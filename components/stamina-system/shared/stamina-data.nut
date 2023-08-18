@@ -1,14 +1,28 @@
 local _globalData = [];
 
 class SharedStaminaData {
-    // Current value of stamina
+    /**
+     * @public | @readonly
+     * @description current value of stamina
+     */
     value = 100;
-    // Maximum possible value of stamina
+
+    /**
+     * @public | @readonly
+     * @description max value of stamina
+     */
     maxValue = 100;
 
-    // If true - stamina was drain. If false - stamina was infinity
+    /**
+     * @public
+     * @description if true - our stamina can be changed. If false - we have infinity stamina
+     */
     canDrain = true;
 
+    /**
+     * @public
+     * @description take all existin' stamina data
+     */
     static function getAllData() {
         return _globalData;
     }
