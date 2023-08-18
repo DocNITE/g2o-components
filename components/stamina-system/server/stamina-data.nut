@@ -47,6 +47,19 @@ class StaminaData extends SharedStaminaData {
 
     /**
      * @private
+     * @description well, we might to move it in something library
+     */
+    function clamp(value, minValue, maxValue) {
+        if (value > maxValue)
+            return maxValue;
+        else if (value < minValue)
+            return minValue;
+        else
+            return value;
+    }
+
+    /**
+     * @private
      * @description synchronize stamina data on player's client
      */
     function sync() {
@@ -127,16 +140,3 @@ addEventHandler ("onStaminaDataSaveRequest", function () {
  * @private
  */
 addEventHandler ("onPacket", StaminaData.onPacket);
-
-/**
- * @private
- * @description well, we might to move it in something library
- */
-local function clamp(value, minValue, maxValue) {
-    if (value > maxValue)
-        return maxValue;
-    else if (value < minValue)
-        return minValue;
-    else
-        return value;
-}

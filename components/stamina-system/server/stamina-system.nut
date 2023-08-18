@@ -15,7 +15,25 @@ StaminaSystem <- {
      * @public
      * @description timer beetwen saves
      */
-    timer = 900000
+    saveTimer = 900000,
+
+    /**
+     * @public
+     * @description can we recover stamina every time?
+     */
+    staminaRecovery = true,
+
+    /**
+     * @public
+     * @description recovery stamina time. 900000*3 = 45 minutes
+     */
+    staminaRecoveryTimer = 900000*3,
+
+    /**
+     * @public
+     * @description recovery stamina amount, what can be given every timer execution
+     */
+    staminaRecoveryAmount = 10
 }
 
 /**
@@ -106,18 +124,38 @@ function StaminaSystem::getMaxValue(player_id) {
 
 
 /**
- * @private
+ * @public
  * @description default events for initialization stamina data
  */
-addEventHandler ("onInit", function () {
+function StaminaSystem::onInit() {
     if (StaminaSystem.autoload)
         StaminaSystem.loadRequest();
+
+    if (StaminaSystem.autosave) {
+        setTimer(function () {
+            StaminaSystem.saveRequest()
+        }, StaminaSystem.saveTimer, 0);
+    }
+
+    if (StaminaSystem.staminaRecovery) {
+        setTimer(function () {
+            foreach (stamina in StaminaData.getAllData()) {
+                stamina.setValue(stamina.value + StaminaSystem.staminaRecoveryAmount);
+            }
+        }, StaminaSystem.staminaRecoveryTimer, 0);
+    }
+}
+addEventHandler ("onInit", function () {
+    StaminaSystem.onInit();
 });
 /**
  * @private
  * @description default events for saving stamina data
  */
-addEventHandler ("onExit", function () {
+function StaminaSystem::onExit() {
     if (StaminaSystem.autosave)
         StaminaSystem.saveRequest();
+}
+addEventHandler ("onExit", function () {
+    StaminaSystem.onExit();
 });

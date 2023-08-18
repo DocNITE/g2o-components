@@ -14,6 +14,10 @@ class StaminaData extends SharedStaminaData {
                 break;
         }
     }
+
+    static function getData() {
+        return myData;
+    }
 }
 
 addEventHandler ("onPacket", StaminaData.onPacket);
