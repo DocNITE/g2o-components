@@ -20,7 +20,7 @@ StaminaSystem <- {
  */
 function StaminaSystem::onChanged(data) {
     // for rendering
-    _dtBefore = -1;
+    _changed = true;
     StaminaSystem.showStaminaBar = true;
 }
 addEventHandler ("onStaminaChanged", StaminaSystem.onChanged);
@@ -32,15 +32,18 @@ addEventHandler ("onStaminaChanged", StaminaSystem.onChanged);
 
 local _drawBar = null
 local _dtBefore = -1;
+local _changed = false;
 
 function StaminaSystem::onRender() {
     if (!StaminaSystem.showStaminaBar) {
         _dtBefore = -1;
         _drawBar = null;
+        _changed = false;
         return;
     } else {
-        if (_dtBefore == -1) {
+        if (_dtBefore == -1 || _changed == true) {
             _dtBefore = getTickCount() + StaminaSystem.time;
+            _changed = false;
         }
         _drawBar = null;
     }
@@ -56,7 +59,6 @@ function StaminaSystem::onRender() {
     for (local i = 0; i < currentValue; i++) {
         progress = progress + "=";
     }
-
     local textBar = "#" + progress + "#";
     local pos = getPlayerPosition(heroId);
     local projection = Camera.project(pos.x, pos.y + 100, pos.z);
@@ -74,4 +76,4 @@ function StaminaSystem::onRender() {
         _drawBar.visible = true;
     }
 }
-addEventHandler ("onRender", StaminaSystem.onRender);
+addEventHandler ("onRender", function () {StaminaSystem.onRender()});

@@ -148,6 +148,7 @@ function StaminaSystem::onInit() {
 addEventHandler ("onInit", function () {
     StaminaSystem.onInit();
 });
+
 /**
  * @private
  * @description default events for saving stamina data

@@ -5,6 +5,7 @@
 	<script src="shared/mining-object.nut" type="shared" />
 	<!-- Client side -->
 	<script src="client/mining-object.nut" type="client" />
+	<script src="client/mining-system.nut" type="client" />
 	<!-- Server side -->
 	<script src="server/mining-object.nut" type="server" />
 	<script src="server/mining-system.nut" type="server" />

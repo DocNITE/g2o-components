@@ -1,6 +1,20 @@
+/**
+ * @protected
+ * @description mining object
+ */
 class MiningObject extends SharedMiningObject {
+    /**
+     * @private
+     * @description vob pointer
+     */
     _vob = null;
 
+    /**
+     * @private
+     * @description used for object synchronization on client
+     *
+     * @param {Packet} packet networked packet from server
+     */
     function create(packet) {
         if (!CLIENT_SIDE)
             return;
@@ -39,6 +53,10 @@ class MiningObject extends SharedMiningObject {
         createVisual();
     }
 
+    /**
+     * @public
+     * @description create vob for mining object
+     */
     function createVisual() {
         if (!CLIENT_SIDE)
             return;

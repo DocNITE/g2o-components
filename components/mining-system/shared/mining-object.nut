@@ -24,9 +24,9 @@ class SharedMiningObject {
     // Play animation when player gathering
     animation = "T_PLUNDER";
     // Distance, where we can interact with object
-    triggerDistance = 100;
+    triggerDistance = 200;
     // Distance, where we can see action button
-    actionDistance = 300;
+    actionDistance = 400;
     // Stamina cost
     price = 5;
     // Mining time
