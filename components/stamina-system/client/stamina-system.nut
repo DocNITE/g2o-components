@@ -54,6 +54,20 @@ function StaminaSystem::onRender() {
         return;
     }
 
+    // New bar showing method
+    local currentValue = StaminaData.getData().value;
+    local pos = getPlayerPosition(heroId);
+    local projection = Camera.project(pos.x, pos.y + 100, pos.z);
+
+    if (projection) {
+        _drawBar = GUI.Bar(0, 0, anx(180), any(20), anx(7), any(3), "BAR_BACK.TGA", "BAR_MISC.TGA", Orientation.Horizontal)
+	    _drawBar.setStretching(false)
+        _drawBar.setValue(currentValue);
+        _drawBar.setVisible(true)
+        _drawBar.setPositionPx(projection.x - (180/2), projection.y);
+    }
+    /*
+    // LEGACY CODE (used drawing)
     local currentValue = ceil(StaminaData.getData().value/10);
     local progress = "";
     for (local i = 0; i < currentValue; i++) {
@@ -75,5 +89,6 @@ function StaminaSystem::onRender() {
             _drawBar.setColor(0, 255, 0);
         _drawBar.visible = true;
     }
+    */
 }
 addEventHandler ("onRender", function () {StaminaSystem.onRender()});

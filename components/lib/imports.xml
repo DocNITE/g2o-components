@@ -1,0 +1,3 @@
+<server>
+    <import src="gui-framework/gui.xml"/>
+</server>
