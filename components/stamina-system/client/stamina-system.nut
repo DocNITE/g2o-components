@@ -7,7 +7,7 @@ StaminaSystem <- {
 
     /**
      * @public
-     * @description show time for stamina before hide. Set '-1' if want infinity time
+     * @description show time for stamina before hide.
      */
     time = 10000
 };

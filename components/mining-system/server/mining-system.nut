@@ -71,6 +71,11 @@ function MiningSystem::tryMining(player_id) {
     }, objmine.time, 1);
 }
 
+// TODO: Need make object load from parser.
+// Then - maybe, saving into file
+// And... Maybe, make 'message-system' pop-up system
+//MiningParser::getDataFromString(data)
+
 /**
  * @public
  * @description network listener method. Can be override ofc
