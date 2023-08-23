@@ -34,9 +34,9 @@ class SharedMiningObject {
     // Object HP, if it set 0, it delete automaticaly. Set -1 if you want infinity HP
     avaible = 30;
 
-    // Items require for mining (instance, usingType)
+    // Items require for mining (instance, usingType) (check only on client)
     require = [];
-    // Items what can be given from object (instance, amount)
+    // Items what can be given from object (instance, amount) (give only on server)
     resources = [];
 
     // Access to global objects store

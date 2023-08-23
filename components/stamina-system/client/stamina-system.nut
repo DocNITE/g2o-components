@@ -20,8 +20,8 @@ StaminaSystem <- {
  */
 function StaminaSystem::onChanged(data) {
     // for rendering
-    _changed = true;
     StaminaSystem.showStaminaBar = true;
+    _changed = true;
 }
 addEventHandler ("onStaminaChanged", StaminaSystem.onChanged);
 

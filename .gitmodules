@@ -1,3 +1,3 @@
-[submodule "gui-framework"]
-	path = gui-framework
+[submodule "components/lib/gui-framework"]
+	path = components/lib/gui-framework
 	url = https://gitlab.com/g2o/scripts/gui-framework.git

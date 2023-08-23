@@ -83,3 +83,107 @@ function MiningSystem::onRender() {
     }
 }
 addEventHandler ("onRender", function () {MiningSystem.onRender()});
+
+/**
+ * @public
+ * @description  listen key events for activate mining
+ *
+ * @param {int} key keyboard key lol
+ */
+
+local _ptr = null;
+local _ani = "";
+local _doAni = false;
+
+function MiningSystem::onKey(key) {
+    if (isKeyToggled(MiningSystem.keyAction)) {
+        local objmine = MiningSystem.getMine(getPlayerPosition(heroId));
+
+        // find nearest object
+        if (objmine == null)
+            return;
+
+        // check require items for mining
+        local canMine = false;
+        foreach (item in objmine.require) {
+            if (hasItem(heroId, Items.id(item[0])))
+                canMine = true;
+
+            // AHTUNG!!!: Maybe dirty code. It's, probably, can dupe item. So fix me, if you can!
+            if (item[1] == MiningRequireType.InHand)
+                equipItem(heroId, Items.id(item[0]));
+        }
+
+        if (objmine.require.len() <= 0)
+            canMine = true;
+
+        // Check CAN WE MINE (at last)
+        if (!canMine)
+            return;
+
+        _ptr = objmine;
+        _ani = objmine.animation;
+
+        // ahh... You know...
+        local packet = Packet();
+        packet.writeUInt16(MiningPacketId.TryMining);
+        packet.send(RELIABLE_ORDERED);
+    }
+}
+addEventHandler ("onKey", function (key) {MiningSystem.onKey(key)});
+
+/**
+ * @public
+ * @description called when start mining
+ */
+function MiningSystem::onMining() {
+    playAni(heroId, _ani);
+    setFreeze(true);
+    _doAni = true;
+
+    local pos = getPlayerPosition(heroId);
+    local angle = getVectorAngle(pos.x, pos.z, _ptr.position[0], _ptr.position[2]);
+    setPlayerAngle(heroId, angle);
+}
+
+/**
+ * @public
+ * @description called when mining was end
+ */
+function MiningSystem::onEndMining() {
+    stopAni(heroId, _ani);
+    setFreeze(false);
+    _doAni = false;
+    _ptr = null;
+}
+
+/**
+ * @public
+ * @description network listener for client side
+ *
+ * @param {Packet} packet network data (packet)
+ */
+function MiningSystem::onPacket(packet) {
+    switch (packet.readUInt16()) {
+        case MiningPacketId.DoMining:
+            MiningSystem.onMining();
+            break;
+        case MiningPacketId.EndMining:
+            MiningSystem.onEndMining();
+            break;
+    }
+}
+addEventHandler ("onPacket", function (packet) {MiningSystem.onPacket(packet);});
+
+/**
+ * @public
+ * @description used for animation cycling. Can be override ofc
+ */
+function MiningSystem::onAniRender() {
+    // If it empty - we dont need play animations
+    if (_doAni) {
+        if (!getPlayerAni(heroId) == _ani)
+            playAni(heroId, _ani);
+    }
+}
+addEventHandler ("onRender", function () {MiningSystem.onAniRender();});
