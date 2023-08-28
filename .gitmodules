@@ -2,5 +2,5 @@
 	path = components/lib/gui-framework
 	url = https://gitlab.com/g2o/scripts/gui-framework.git
 [submodule "tween.nut"]
-	path = tween.nut
+	path = components/lib/tween.nut
 	url = https://gitlab.com/g2o/scripts/tween.nut.git
