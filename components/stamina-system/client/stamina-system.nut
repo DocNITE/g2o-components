@@ -12,6 +12,13 @@ StaminaSystem <- {
     time = 10000
 };
 
+// local vars
+local _barValue = {value = 0};
+local _tween = null;
+local _drawBar = null
+local _dtBefore = -1;
+local _changed = false;
+
 /**
  * @public
  * @description show stamina bar, when it's changed
@@ -22,6 +29,11 @@ function StaminaSystem::onChanged(data) {
     // for rendering
     StaminaSystem.showStaminaBar = true;
     _changed = true;
+
+    if (_tween != null && !_tween.ended)
+        _tween.stop();
+
+    _tween = Tween(1, _barValue, {value = data.value}, Tween.easing.linear);
 }
 addEventHandler ("onStaminaChanged", StaminaSystem.onChanged);
 
@@ -29,11 +41,6 @@ addEventHandler ("onStaminaChanged", StaminaSystem.onChanged);
  * @public
  * @description draw stamina ui bar. You can override it like 'StaminaSystem.onRender = function () {}' for custom drawing
  */
-
-local _drawBar = null
-local _dtBefore = -1;
-local _changed = false;
-
 function StaminaSystem::onRender() {
     if (!StaminaSystem.showStaminaBar) {
         _dtBefore = -1;
@@ -60,10 +67,15 @@ function StaminaSystem::onRender() {
     local projection = Camera.project(pos.x, pos.y + 100, pos.z);
 
     if (projection) {
-        _drawBar = GUI.Bar(0, 0, anx(180), any(20), anx(7), any(3), "BAR_BACK.TGA", "BAR_MISC.TGA", Orientation.Horizontal)
-	    _drawBar.setStretching(false)
-        _drawBar.setValue(currentValue);
-        _drawBar.setVisible(true)
+        _drawBar = GUI.Bar({
+            positionPx = {x = 0, y = 0},
+            sizePx = {width = 180, height = 20},
+            marginPx = {top = 3, right = 7, bottom = 3, left = 7}, // {top = 7, right = 3, bottom = 7, left = 3},
+            stretching = true,
+            visible = true,
+            file = "BAR_BACK.TGA",
+            progress = {file = "BAR_MISC.TGA"}})
+        _drawBar.setValue(_barValue.value);
         _drawBar.setPositionPx(projection.x - (180/2), projection.y);
     }
     /*

@@ -2,6 +2,8 @@
 	<!-- Lib/Utility -->
 	<import src="lib/imports.xml"/>
 	<!-- Content Code -->
+	<import src="gui-system/imports.xml"/>
+
 	<import src="mining-system/imports.xml"/>
 	<import src="stamina-system/imports.xml"/>
 </server>

@@ -91,12 +91,13 @@ addEventHandler ("onRender", function () {MiningSystem.onRender()});
  * @param {int} key keyboard key lol
  */
 
+local _isMining = false;
 local _ptr = null;
 local _ani = "";
 local _doAni = false;
 
 function MiningSystem::onKey(key) {
-    if (isKeyToggled(MiningSystem.keyAction)) {
+    if (isKeyToggled(MiningSystem.keyAction) && !_isMining) {
         local objmine = MiningSystem.getMine(getPlayerPosition(heroId));
 
         // find nearest object
@@ -137,6 +138,7 @@ addEventHandler ("onKey", function (key) {MiningSystem.onKey(key)});
  * @description called when start mining
  */
 function MiningSystem::onMining() {
+    _isMining = true;
     playAni(heroId, _ani);
     setFreeze(true);
     _doAni = true;
@@ -151,6 +153,7 @@ function MiningSystem::onMining() {
  * @description called when mining was end
  */
 function MiningSystem::onEndMining() {
+    _isMining = false;
     stopAni(heroId, _ani);
     setFreeze(false);
     _doAni = false;
