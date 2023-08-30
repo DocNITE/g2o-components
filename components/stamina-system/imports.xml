@@ -1,8 +1,4 @@
 <server>
-  <!-- Development! -->
-	<script src="client/debug/main.nut" type="client" />
-	<script src="server/debug/main.nut" type="server" />
-
 	<!-- Shared side -->
 	<script src="shared/packet-id.nut" type="shared" />
 	<script src="shared/stamina-data.nut" type="shared" />

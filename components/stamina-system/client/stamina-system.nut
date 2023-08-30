@@ -13,7 +13,7 @@ StaminaSystem <- {
 };
 
 // local vars
-local _barValue = {value = 0};
+local _bar = {width = 180/2, height = 20/2, value = 0};
 local _tween = null;
 local _drawBar = null
 local _dtBefore = -1;
@@ -33,7 +33,7 @@ function StaminaSystem::onChanged(data) {
     if (_tween != null && !_tween.ended)
         _tween.stop();
 
-    _tween = Tween(1, _barValue, {value = data.value}, Tween.easing.linear);
+    _tween = Tween(1, _bar, {value = data.value}, Tween.easing.linear);
 }
 addEventHandler ("onStaminaChanged", StaminaSystem.onChanged);
 
@@ -69,14 +69,14 @@ function StaminaSystem::onRender() {
     if (projection) {
         _drawBar = GUI.Bar({
             positionPx = {x = 0, y = 0},
-            sizePx = {width = 180, height = 20},
+            sizePx = {width = _bar.width, height = _bar.height},
             marginPx = {top = 3, right = 7, bottom = 3, left = 7}, // {top = 7, right = 3, bottom = 7, left = 3},
             stretching = true,
             visible = true,
             file = "BAR_BACK.TGA",
             progress = {file = "BAR_MISC.TGA"}})
-        _drawBar.setValue(_barValue.value);
-        _drawBar.setPositionPx(projection.x - (180/2), projection.y);
+        _drawBar.setValue(_bar.value);
+        _drawBar.setPositionPx(projection.x - (_bar.width/2), projection.y);
     }
     /*
     // LEGACY CODE (used drawing)

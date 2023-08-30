@@ -9,8 +9,4 @@
 	<!-- Server side -->
 	<script src="server/mining-object.nut" type="server" />
 	<script src="server/mining-system.nut" type="server" />
-
-	<!-- Development! -->
-	<script src="client/debug/main.nut" type="client" />
-	<script src="server/debug/main.nut" type="server" />
 </server>

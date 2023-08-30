@@ -1,1 +1,2 @@
-Nickname 90 100
+Nickname 85 100
+DocNight 40 100
