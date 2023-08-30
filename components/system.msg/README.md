@@ -1,3 +1,3 @@
-# message-system
+# system.msg
 
 Используется для показа pop-up сообщений (для разных приколов). TODO

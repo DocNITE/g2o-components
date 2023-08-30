@@ -5,12 +5,21 @@ addEventHandler("onInit", function () {
 })
 
 addEventHandler("onRender", function () {
-    debugText("Character transform", "", 2);
+    debugText("character transform", "", 2);
     local playerVob = Vob(getPlayerPtr(heroId));
     local pos = playerVob.getPosition();
-    debugText("Pos", pos.x + ", " + pos.y + ", " + pos.z, 2);
+    debugText("pos", pos.x + ", " + pos.y + ", " + pos.z, 2);
     local rot = playerVob.getRotation();
-    debugText("Rot", rot.x + ", " + rot.y + ", " + rot.z, 2);
+    debugText("rot", rot.x + ", " + rot.y + ", " + rot.z, 2);
+
+    // find nearest mining obj
+    local objmine = MiningSystem.getMine(getPlayerPosition(heroId));
+    if (objmine != null) {
+        debugText("system.mining", "", 2);
+        debugText("name", objmine.name, 2);
+        debugText("id", objmine.id, 2);
+    }
+
 })
 }
 if (SERVER_SIDE)
