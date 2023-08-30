@@ -3,6 +3,15 @@ if (CLIENT_SIDE)
 addEventHandler("onInit", function () {
     GuiSystem.canDrawDebug = true;
 })
+
+addEventHandler("onRender", function () {
+    debugText("Character transform", "", 2);
+    local playerVob = Vob(getPlayerPtr(heroId));
+    local pos = playerVob.getPosition();
+    debugText("Pos", pos.x + ", " + pos.y + ", " + pos.z, 2);
+    local rot = playerVob.getRotation();
+    debugText("Rot", rot.x + ", " + rot.y + ", " + rot.z, 2);
+})
 }
 if (SERVER_SIDE)
 {

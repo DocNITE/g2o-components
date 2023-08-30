@@ -1,3 +1,4 @@
 <server>
-    <script src="client/gui-system.nut" type="client" />
+    <script src="client/system.gui.nut" type="client" />
+    <script src="client/system.gui.debug.nut" type="client" />
 </server>
