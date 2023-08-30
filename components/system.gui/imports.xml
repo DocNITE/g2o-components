@@ -1,4 +1,5 @@
 <server>
     <script src="client/system.gui.nut" type="client" />
     <script src="client/system.gui.debug.nut" type="client" />
+    <script src="client/system.gui.popup.nut" type="client" />
 </server>

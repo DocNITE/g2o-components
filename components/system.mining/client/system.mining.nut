@@ -51,11 +51,30 @@ function MiningSystem::getMine(pos) {
         if (distance >= nearDistance)
             continue;
 
+        if (distance > obj_mine.actionDistance)
+            continue;
+
         object = obj_mine;
         nearDistance = distance;
     }
 
     return object;
+}
+
+/**
+ * @public
+ * @description
+ *
+ * @param {MiningObject} obj_mine
+ */
+function MiningSystem::canMine(pos, obj_mine) {
+    local objPos = {x = obj_mine.position[0], y = obj_mine.position[1], z = obj_mine.position[2]};
+    local distance = getDistance3d(pos.x, pos.y, pos.z, objPos.x, objPos.y, objPos.z);
+
+    if (distance <= obj_mine.triggerDistance)
+        return true
+    else
+        return false
 }
 
 /**
@@ -98,10 +117,14 @@ local _doAni = false;
 
 function MiningSystem::onKey(key) {
     if (isKeyToggled(MiningSystem.keyAction) && !_isMining) {
-        local objmine = MiningSystem.getMine(getPlayerPosition(heroId));
+        local pos = getPlayerPosition(heroId);
+        local objmine = MiningSystem.getMine(pos);
 
         // find nearest object
         if (objmine == null)
+            return;
+
+        if (!MiningSystem.canMine(pos, objmine))
             return;
 
         // check require items for mining

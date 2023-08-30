@@ -1,6 +1,7 @@
 if (CLIENT_SIDE)
 {
 addEventHandler("onInit", function () {
+    // Enabled debug drawing
     GuiSystem.canDrawDebug = true;
 })
 
@@ -12,12 +13,14 @@ addEventHandler("onRender", function () {
     local rot = playerVob.getRotation();
     debugText("rot", rot.x + ", " + rot.y + ", " + rot.z, 2);
 
+    //playerVob.setRotation(rot.x, rot.y, 90);
+
     // find nearest mining obj
     local objmine = MiningSystem.getMine(getPlayerPosition(heroId));
     if (objmine != null) {
-        debugText("system.mining", "", 2);
-        debugText("name", objmine.name, 2);
-        debugText("id", objmine.id, 2);
+        debugText("system.mining", "", 0.1);
+        debugText("name", objmine.name, 0.1);
+        debugText("id", objmine.id, 0.1);
     }
 
 })

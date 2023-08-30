@@ -102,7 +102,7 @@ addEventHandler ("onStaminaDataRequest", function (ownerId, owner) {
 addEventHandler ("onStaminaDataLoadRequest", function () {
     try
     {
-        local fileLoad = file("components/stamina-system/data/db.txt", "r");
+        local fileLoad = file("components/system.stamina/data/db.txt", "r");
         local args = 0;
 
         do{
@@ -129,7 +129,7 @@ addEventHandler ("onStaminaDataLoadRequest", function () {
  * @description save all stamina data into database
  */
 addEventHandler ("onStaminaDataSaveRequest", function () {
-    local fileWrite = file("components/stamina-system/data/db.txt", "w");
+    local fileWrite = file("components/system.stamina/data/db.txt", "w");
     foreach (value in StaminaData.getAllData()) {
         fileWrite.write(value.owner + " " + value.value + " " + value.maxValue + "\n");
     }
