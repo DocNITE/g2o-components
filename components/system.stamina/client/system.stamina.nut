@@ -34,6 +34,8 @@ function StaminaSystem::onChanged(data) {
         _tween.stop();
 
     _tween = Tween(1, _bar, {value = data.value}, Tween.easing.linear);
+
+    debugText("system.stamina.showStaminaBar", "true", StaminaSystem.time/1000);
 }
 addEventHandler ("onStaminaChanged", StaminaSystem.onChanged);
 
@@ -61,10 +63,14 @@ function StaminaSystem::onRender() {
         return;
     }
 
+    debugText("system.stamina.onRenderStart", "true", 0.1);
+
     // New bar showing method
     local currentValue = StaminaData.getData().value;
     local pos = getPlayerPosition(heroId);
     local projection = Camera.project(pos.x, pos.y + 100, pos.z);
+
+    debugText("system.stamina.onRenderPostProjection", "true", 0.1);
 
     if (projection) {
         _drawBar = GUI.Bar({
@@ -78,6 +84,9 @@ function StaminaSystem::onRender() {
         _drawBar.setValue(_bar.value);
         _drawBar.setPositionPx(projection.x - (_bar.width/2), projection.y);
     }
+
+    debugText("system.stamina.onRenderEnd", "true", 0.1);
+
     /*
     // LEGACY CODE (used drawing)
     local currentValue = ceil(StaminaData.getData().value/10);

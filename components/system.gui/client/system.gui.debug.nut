@@ -60,18 +60,18 @@ class DebugMsgInfo {
             for (local i = 0; i < count; i++) {
                 local msg = _container[i];
                 local draw = _draws[i];
-                if (draw.width > width)
-                    width = draw.width;
+                if (draw.widthPx > width)
+                    width = draw.widthPx;
             }
             local height = 0;
             for (local i = 0; i < count; i++) {
                 local msg = _container[i];
                 local draw = _draws[i];
-                height += draw.height+(draw.height/2);
+                height += draw.heightPx+(draw.heightPx/2);
             }
             // reposition
             //local ypos = 0;
-            local ypos = (4096-(height/2));
+            local ypos = ((getResolution().y/2)-(height/2));
             for (local i = 0; i < count; i++) {
                 local msg = _container[i];
                 local draw = _draws[i];
@@ -79,8 +79,8 @@ class DebugMsgInfo {
                 // TOP-RIGHT
                 //msg.draw.setPosition(8192 - width, ypos);
                 // LEFT-CENTER
-                draw.setPosition(15, ypos);
-                ypos += draw.height+(draw.height/2);
+                draw.setPositionPx(10, ypos);
+                ypos += draw.heightPx+(draw.heightPx/2);
             }
         }
     }
