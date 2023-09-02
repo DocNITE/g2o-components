@@ -19,10 +19,18 @@ local _drawBar = null
 local _dtBefore = -1;
 local _changed = false;
 
+/**
+ * @public
+ * @description get local player's stamina value
+ */
 function StaminaSystem::getValue() {
     return StaminaData.getData().value;
 }
 
+/**
+ * @public
+ * @description get local player's stamina maximum value
+ */
 function StaminaSystem::getMaxValue() {
     return StaminaData.getData().maxValue;
 }

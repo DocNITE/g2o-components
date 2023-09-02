@@ -69,7 +69,6 @@ function MiningSystem::tryMining(player_id) {
         return;
 
     if (currStam < objmine.price) {
-        sendPopupMessage(player_id, Loc.getText("mining-not-enough-stamina"));
         return;
     }
 
@@ -99,7 +98,6 @@ function MiningSystem::tryMining(player_id) {
 
 // TODO: Need make object load from parser.
 // Then - maybe, saving into file
-// And... Maybe, make 'message-system' pop-up system
 //MiningParser::getDataFromString(data)
 
 /**

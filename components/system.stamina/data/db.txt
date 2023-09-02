@@ -1,2 +1,2 @@
-DocNight 85 100
+DocNight 90 100
 Nickname 100 100
