@@ -3,6 +3,14 @@ if (CLIENT_SIDE)
 addEventHandler("onInit", function () {
     // Enabled debug drawing
     GuiSystem.canDrawDebug = true;
+    // Test popups
+    /**
+     * setTimer(function () {
+        GuiSystem.addPopupMessage("Fatagn Shatagn Lol fuckFatagn Shatagn Lol fuckFatagn Shatagn Lol fuckFatagn Shatagn Lol fuckFatagn Shatagn Lol fuckFatagn Shatagn Lol fuck");
+    }, 4000, 666);
+     */
+    // Test popup like welcome
+    sendPopupMessage("[#aaffff]Welcome to server from client side!");
 })
 
 addEventHandler("onRender", function () {
@@ -28,6 +36,7 @@ addEventHandler("onRender", function () {
 if (SERVER_SIDE)
 {
 
+    // Test mining obj
     local testGatch = MiningObject();
     testGatch.id = "sword-farming";
     testGatch.name = "mining sword"
@@ -41,5 +50,7 @@ if (SERVER_SIDE)
 addEventHandler ("onPlayerJoin", function (pid) {
         // Second is db id, there you can put character name or nickname idk
         StaminaSystem.loadDataRequest(pid, getPlayerName(pid));
+        // Test popup from server
+        sendPopupMessage(pid, "[#F60005]Welcome to server from server side!");
 });
 }
