@@ -1,9 +1,9 @@
 <server>
 	<!-- Lib/Utility -->
 	<import src="lib/imports.xml"/>
+	<import src="locale/imports.xml" />
 	<!-- Content Code -->
 	<import src="system.gui/imports.xml"/>
-
 	<import src="system.mining/imports.xml"/>
 	<import src="system.stamina/imports.xml"/>
 </server>

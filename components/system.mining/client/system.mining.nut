@@ -3,7 +3,9 @@ MiningSystem <- {
      * @public
      * @description play animation, if we can't mining (e.g. dont have stamina)
      */
-    aniCantMining = "T_DONTKNOW",
+    aniCantMining = function () {
+        playAni(heroId, "T_DONTKNOW")
+    },
 
     /**
      * @public
@@ -28,7 +30,7 @@ MiningSystem <- {
         if (obj_mine != null)
             obj_name = obj_mine.name;
         local result = "";
-        local text = ["Press ", " for mining "];
+        local text = Loc.getText("mining-key-action");
         result = text[0] + getKeyLetter(MiningSystem.keyAction) + text[1] + obj_name;
         return result;
     }
@@ -124,8 +126,17 @@ function MiningSystem::onKey(key) {
         if (objmine == null)
             return;
 
-        if (!MiningSystem.canMine(pos, objmine))
+        if (!MiningSystem.canMine(pos, objmine)) {
+            sendPopupMessage(Loc.getText("mining-too-far"));
+            MiningSystem.aniCantMining();
             return;
+        }
+
+        if (StaminaSystem.getValue() < objmine.price) {
+            sendPopupMessage(Loc.getText("mining-not-enough-stamina"));
+            MiningSystem.aniCantMining();
+            return;
+        }
 
         // check require items for mining
         local canMine = false;
@@ -134,6 +145,7 @@ function MiningSystem::onKey(key) {
                 canMine = true;
 
             // AHTUNG!!!: Maybe dirty code. It's, probably, can dupe item. So fix me, if you can!
+            // TODO: Should check if equiped item or not. Not equip it shit
             if (item[1] == MiningRequireType.InHand)
                 equipItem(heroId, Items.id(item[0]));
         }
@@ -142,8 +154,16 @@ function MiningSystem::onKey(key) {
             canMine = true;
 
         // Check CAN WE MINE (at last)
-        if (!canMine)
+        if (!canMine) {
+            local itemList = "";
+            foreach (item in objmine.require) {
+                itemList = itemList + "'" + Items.name(Items.id(item[0])) + "(x" + item[1] + ")" + "' "
+            }
+            sendPopupMessage(Loc.getText("mining-not-have-item") + itemList);
+            MiningSystem.aniCantMining();
             return;
+        }
+
 
         _ptr = objmine;
         _ani = objmine.animation;

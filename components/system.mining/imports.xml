@@ -1,4 +1,5 @@
 <server>
+	<script src="data/en-US.nut" type="shared" />
 	<!-- Shared side -->
 	<script src="shared/system.mining.packet.id.nut" type="shared" />
 	<script src="shared/system.mining.parser.nut" type="shared" />

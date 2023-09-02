@@ -68,8 +68,10 @@ function MiningSystem::tryMining(player_id) {
     if (!MiningSystem.canMine(pos, objmine))
         return;
 
-    if (currStam < objmine.price)
+    if (currStam < objmine.price) {
+        sendPopupMessage(player_id, Loc.getText("mining-not-enough-stamina"));
         return;
+    }
 
     // if exist nearby object and has stamina
     local packet = Packet();
@@ -89,6 +91,8 @@ function MiningSystem::tryMining(player_id) {
         // give resources
         foreach (item in objmine.resources) {
             giveItem(player_id, Items.id(item[0]), item[1]);
+            local itemName = "'" + Items.name(Items.id(item[0])) + "(x" + item[1] + ")" + "' ";
+            sendPopupMessage(player_id, Loc.getText("mining-give-item") + itemName);
         }
     }, objmine.time, 1);
 }

@@ -19,6 +19,14 @@ local _drawBar = null
 local _dtBefore = -1;
 local _changed = false;
 
+function StaminaSystem::getValue() {
+    return StaminaData.getData().value;
+}
+
+function StaminaSystem::getMaxValue() {
+    return StaminaData.getData().maxValue;
+}
+
 /**
  * @public
  * @description show stamina bar, when it's changed
@@ -66,7 +74,6 @@ function StaminaSystem::onRender() {
     debugText("system.stamina.onRenderStart", "true", 0.1);
 
     // New bar showing method
-    local currentValue = StaminaData.getData().value;
     local pos = getPlayerPosition(heroId);
     local projection = Camera.project(pos.x, pos.y + 100, pos.z);
 
