@@ -94,13 +94,16 @@ class MiningObject extends SharedMiningObject {
                 case MiningPacketId.Destroy:
                     // Destroy object with id field
                     local destroyId = packet.readString();
-                    for (local i; i < MiningObject.getAllObjects().len(); i++) {
-                        if (MiningObject.getAllObjects()[i] == null)
+                    local count = MiningObject.getAllObjects().len();
+                    for (local i; i < count; i++) {
+                        local objects = MiningObject.getAllObjects();
+
+                        if (objects[i] == null)
                             continue;
 
-                        if (MiningObject.getAllObjects()[i].id == destroyId) {
-                            MiningObject.getAllObjects()[i]._vob.removeFromWorld();
-                            MiningObject.getAllObjects()[i] = null;
+                        if (objects[i].id == destroyId) {
+                            objects[i]._vob.removeFromWorld();
+                            objects[i] = null;
                         }
                     }
                     break;

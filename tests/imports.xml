@@ -1,3 +1,4 @@
 <server>
 	<script src="main.nut" type="shared" />
+	<script src="ux_vob_trigger_test.nut" type="shared" />
 </server>

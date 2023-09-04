@@ -45,10 +45,14 @@ MiningSystem <- {
 function MiningSystem::getMine(pos) {
     local nearDistance = MiningSystem.maxUseDistance;
     local object = null;
+    local currentWorld = getWorld();
 
     foreach (obj_mine in MiningObject.getAllObjects()) {
         local objPos = {x = obj_mine.position[0], y = obj_mine.position[1], z = obj_mine.position[2]};
         local distance = getDistance3d(pos.x, pos.y, pos.z, objPos.x, objPos.y, objPos.z);
+
+        if (obj_mine.world != currentWorld)
+            continue;
 
         if (distance >= nearDistance)
             continue;

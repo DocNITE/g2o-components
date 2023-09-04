@@ -20,6 +20,8 @@ Loc <- {
  *
  * @param {string} sKey table key from `Loc`
  * @param {Languages} eLang language what we want use
+ *
+ * @return {string} text
  */
 function Loc::getText(sKey, eLang = null) {
     if (eLang == null)
@@ -36,6 +38,14 @@ function Loc::getText(sKey, eLang = null) {
     }
 }
 
+/**
+ * @public
+ * @description set text with locale
+ *
+ * @param {string} sKey table key from `Loc`
+ * @param {string} sText content what we want push
+ * @param {Languages} eLang language what we want use
+ */
 function Loc::setText(sKey, sText, eLang = null) {
     if (eLang == null)
         eLang = Loc.language
@@ -46,6 +56,12 @@ function Loc::setText(sKey, sText, eLang = null) {
     Loc[sKey][eLang] <- sText
 }
 
+/**
+ * @public
+ * @description set table with content to `Loc`, with locale
+ *
+ * @param {table} tObject content table
+ */
 function Loc::setTable(tObject) {
     foreach (key, value in tObject) {
         if (key == "localization")

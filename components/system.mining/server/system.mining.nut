@@ -13,13 +13,16 @@ MiningSystem <- {
  *
  * @param {x, y, z} pos our position where we can try to find nearest object
  */
-function MiningSystem::getMine(pos) {
+function MiningSystem::getMine(pos, world) {
     local nearDistance = MiningSystem.maxUseDistance;
     local object = null;
 
     foreach (obj_mine in MiningObject.getAllObjects()) {
         local objPos = {x = obj_mine.position[0], y = obj_mine.position[1], z = obj_mine.position[2]};
         local distance = getDistance3d(pos.x, pos.y, pos.z, objPos.x, objPos.y, objPos.z);
+
+        if (obj_mine.world != world)
+            continue;
 
         if (distance >= nearDistance)
             continue;
@@ -59,7 +62,8 @@ function MiningSystem::canMine(pos, obj_mine) {
 function MiningSystem::tryMining(player_id) {
     local pos = getPlayerPosition(player_id);
     local currStam = StaminaSystem.getValue(player_id);
-    local objmine = MiningSystem.getMine(pos);
+    local currWorld = getPlayerWorld(player_id);
+    local objmine = MiningSystem.getMine(pos, currWorld);
 
     // Check - can we mining or not
     if (objmine == null)
