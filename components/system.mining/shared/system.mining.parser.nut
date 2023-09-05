@@ -26,7 +26,6 @@ function MiningParser::setDataFromString(sData, tTable) {
     local segments = split(sData, ";");
     foreach (value in segments) {
         local keyarr = getKey(value);
-        print(keyarr[0] + "|" + keyarr[1])
         tTable[keyarr[0]] = keyarr[1];
     }
 }

@@ -63,7 +63,7 @@ if (SERVER_SIDE)
         }
         catch (errorMsg) {}
 
-        print(dataShit + " |DATA")
+        //print(dataShit + " |DATA")
 
         MiningParser.setDataFromString(dataShit, testGatch);
         //TODO: Add save in file support! Then - add multiple loading!
