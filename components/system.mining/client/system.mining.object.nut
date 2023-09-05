@@ -64,6 +64,11 @@ class MiningObject extends SharedMiningObject {
         if (vobVisual == "" || world != getWorld())
             return;
 
+        if (_vob != null) {
+            _vob.removeFromWorld();
+            _vob = null;
+        }
+
         _vob = Vob(vobVisual);
         _vob.setPosition(vobPosition[0], vobPosition[1], vobPosition[2]);
         _vob.setRotation(vobRotation[0], vobRotation[1], vobRotation[2]);

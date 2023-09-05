@@ -43,9 +43,31 @@ if (SERVER_SIDE)
     testGatch.position = [0,0,0];
     testGatch.vobVisual = "MIN_ORE_BIG_V1.3DS";
     testGatch.require = [["ITMW_1H_SPECIAL_04", MiningRequireType.InHand]];
-    testGatch.resources = [["ITMW_SCHWERT", 2]];
+    testGatch.resources = [["ITMW_SCHWERT", 2, 100]];
     testGatch.time = 10000;
-    MiningObject.getAllObjects().push(testGatch);
+
+    addEventHandler("onInit", function () {
+        local dataShit = "";
+        try
+        {
+            local fileLoad = file("components/system.mining/data/objects.txt", "r");
+
+            local line = "";
+            while (line != null) {
+                line = fileLoad.read("l");
+                if (line != null)
+                    dataShit = dataShit + line;
+            }
+
+            fileLoad.close();
+        }
+        catch (errorMsg) {}
+
+        print(dataShit + " |DATA")
+
+        MiningParser.setDataFromString(dataShit, testGatch);
+        //TODO: Add save in file support! Then - add multiple loading!
+    })
 
 addEventHandler ("onPlayerJoin", function (pid) {
         // Second is db id, there you can put character name or nickname idk

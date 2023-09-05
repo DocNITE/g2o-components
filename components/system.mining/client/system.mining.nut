@@ -91,6 +91,8 @@ function MiningSystem::canMine(pos, obj_mine) {
 local _draw = null;
 
 function MiningSystem::onRender() {
+    debugText("system.mining.objectsCount", MiningObject.getAllObjects().len(), 0.1)
+
     _draw = null;
 
     local obj_mine = MiningSystem.getMine(getPlayerPosition(heroId));

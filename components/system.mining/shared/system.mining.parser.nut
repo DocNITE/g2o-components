@@ -22,12 +22,26 @@ function MiningParser::getDataFromString(data) {
     return resultData;
 }
 
+function MiningParser::setDataFromString(sData, tTable) {
+    local segments = split(sData, ";");
+    foreach (value in segments) {
+        local keyarr = getKey(value);
+        print(keyarr[0] + "|" + keyarr[1])
+        tTable[keyarr[0]] = keyarr[1];
+    }
+}
+
 function MiningParser::getKey(line) {
     local data = split(line, "=");
     local arrayobject = getObject(data[1]);
 
-    if (arrayobject == null)
-        return [data[0], data[1]];
+    if (arrayobject == null) {
+        try {
+            return [data[0], data[1].tointeger()];
+        } catch (e) {
+            return [data[0], data[1]];
+        }
+    }
 
     return [data[0], arrayobject];
 }

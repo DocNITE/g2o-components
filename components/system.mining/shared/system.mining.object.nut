@@ -1,45 +1,112 @@
 local _miningObjects = [];
 
 class SharedMiningObject {
-    // Unique object indetifier
+    /**
+     * @public
+     * @description Unique object indetifier
+     */
     id = "";
-    // Object name
+
+    /**
+     * @public
+     * @description Object name
+     */
     name = "";
-    // Object iteract position
+
+    /**
+     * @public
+     * @description Object iteract position
+     */
     position = [0,0,0];
-    // Parent world
+
+    /**
+     * @public
+     * @description Parent world
+     */
     world = "NEWWORLD\\NEWWORLD.ZEN";
 
-    // Object visual model (set "" if you dont want use it)
+    /**
+     * @public
+     * @description Object visual model (set "" if you dont want use it)
+     */
     vobVisual = "";
-    // Vob physical (1 or 0)
+
+    /**
+     * @public
+     * @description Vob physical (1 or 0)
+     */
     vobPhysical = 0;
-    // Vob colision (1 or 0)
+
+    /**
+     * @public
+     * @description Vob colision (1 or 0)
+     */
     vobCdDynamic = 0;
-    // Vob position
+
+    /**
+     * @public
+     * @description Vob position
+     */
     vobPosition = [0,0,0];
-    // Vob rotation
+
+    /**
+     * @public
+     * @description Vob rotation
+     */
     vobRotation = [0,0,0];
 
-    // Play animation when player gathering
+    /**
+     * @public
+     * @description Play animation when player gathering
+     */
     animation = "T_PLUNDER";
-    // Distance, where we can interact with object
+
+    /**
+     * @public
+     * @description Distance, where we can interact with object
+     */
     triggerDistance = 200;
-    // Distance, where we can see action button
+
+    /**
+     * @public
+     * @description Distance, where we can see action button
+     */
     actionDistance = 400;
-    // Stamina cost
+
+    /**
+     * @public
+     * @description Stamina cost
+     */
     price = 5;
-    // Mining time
+
+    /**
+     * @public
+     * @description Mining cooldown time
+     */
     time = 1000;
-    // Object HP, if it set 0, it delete automaticaly. Set -1 if you want infinity HP
+
+    /**
+     * @public
+     * @description Object HP, if it set 0, it delete automaticaly. Set -1 if you want infinity HP
+     */
     avaible = 30;
 
-    // Items require for mining (instance, usingType) (check only on client)
+    /**
+     * @public
+     * @description Items require for mining (instance, usingType) (check only on client)
+     */
     require = [];
-    // Items what can be given from object (instance, amount) (give only on server)
+
+    /**
+     * @public
+     * @description Items what can be given from object (instance, amount, chance(%)) (give only on server)
+     */
     resources = [];
 
-    // Access to global objects store
+    /**
+     * @protected
+     * @description Access to global objects store
+     */
     static function getAllObjects() {
         return _miningObjects;
     }

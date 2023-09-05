@@ -1,6 +1,10 @@
 class MiningObject extends SharedMiningObject {
     canSave = true;
 
+    constructor() {
+        this.getAllObjects().push(this);
+    }
+
     function sync(pid) {
         if (!SERVER_SIDE)
             return;

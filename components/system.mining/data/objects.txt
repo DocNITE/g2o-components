@@ -1,20 +1,20 @@
 id=sword-farming-1;
 name=$metal sword tree;
 position=[]0,0,0;
-world=NEWWORLD/NEWWORLD.ZEN;
-vobVisual=null;
+world=NEWWORLD\NEWWORLD.ZEN;
+vobVisual=MIN_ORE_BIG_V1.3DS;
 vobPhysical=0;
 vobPosition=[]0,0,0;
 vobRotation=[]0,0,0;
 animation=T_PLUNDER;
-triggerDistance=100;
-actionDistance=300;
+triggerDistance=200;
+actionDistance=400;
 price=20;
-time=2;
+time=3000;
 avaible=4;
 require={}
 ITMW_1H_SPECIAL_04|1
 ;
 resources={}
-ITMW_SCHWERT|1,
+ITMW_SCHWERT|1|100,
 ;
