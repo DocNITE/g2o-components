@@ -1,1 +1,2 @@
-DocNight 45 100
+Niga 70 100
+DocNight 70 100

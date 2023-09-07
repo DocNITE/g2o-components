@@ -115,6 +115,7 @@ addEventHandler ("onStaminaDataRequest", function (ownerId, owner) {
     local newData = StaminaData();
     newData.owner = owner;
     newData.ownerId = ownerId;
+    newData.sync();
     callEvent("onStaminaDataSaveRequest");
 });
 
