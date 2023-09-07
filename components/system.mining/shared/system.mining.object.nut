@@ -91,6 +91,8 @@ class SharedMiningObject {
      */
     avaible = 30;
 
+    //TODO: Add respawn support
+
     /**
      * @public
      * @description Items require for mining (instance, usingType) (check only on client)
@@ -109,5 +111,17 @@ class SharedMiningObject {
      */
     static function getAllObjects() {
         return _miningObjects;
+    }
+
+    static function getList() {
+        return _miningObjects;
+    }
+
+    static function getObjectWithId(id) {
+        foreach (object in _miningObjects) {
+            if (object.id == id)
+                return object;
+        }
+        return null;
     }
 }

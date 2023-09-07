@@ -39,6 +39,18 @@ function MiningSystem::getMine(pos, world) {
 
 /**
  * @public
+ * @description desc
+ */
+function MiningSystem::getMineWithId(id, world) {
+    local object = MiningObject.getObjectWithId(id);
+    if (object != null && object.world == world)
+        return object;
+    else
+        return null;
+}
+
+/**
+ * @public
  * @description
  *
  * @param {MiningObject} obj_mine
@@ -58,12 +70,13 @@ function MiningSystem::canMine(pos, obj_mine) {
  * @description try mine object on server side
  *
  * @param {int} player_id player id lol
+ * @param {int} object_id mining object id
  */
-function MiningSystem::tryMining(player_id) {
+function MiningSystem::tryMining(player_id, object_id) {
     local pos = getPlayerPosition(player_id);
     local currStam = StaminaSystem.getValue(player_id);
     local currWorld = getPlayerWorld(player_id);
-    local objmine = MiningSystem.getMine(pos, currWorld);
+    local objmine = MiningSystem.getMineWithId(object_id, currWorld);
 
     // Check - can we mining or not
     if (objmine == null)
@@ -111,7 +124,8 @@ function MiningSystem::tryMining(player_id) {
 function MiningSystem::onPacket(player_id, packet) {
     switch (packet.readUInt16()) {
         case MiningPacketId.TryMining:
-            MiningSystem.tryMining(player_id);
+            local objId = packet.readString();
+            MiningSystem.tryMining(player_id, objId);
             break;
     }
 }

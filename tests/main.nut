@@ -31,20 +31,15 @@ addEventHandler("onRender", function () {
         debugText("id", objmine.id, 0.1);
     }
 
+    local focus = getFocusVob();
+    if (focus) {
+        debugText("focus.vob", focus, 0.1);
+    }
+
 })
 }
 if (SERVER_SIDE)
 {
-
-    // Test mining obj
-    local testGatch = MiningObject();
-    testGatch.id = "sword-farming";
-    testGatch.name = "mining sword"
-    testGatch.position = [0,0,0];
-    testGatch.vobVisual = "MIN_ORE_BIG_V1.3DS";
-    testGatch.require = [["ITMW_1H_SPECIAL_04", MiningRequireType.InHand]];
-    testGatch.resources = [["ITMW_SCHWERT", 2, 100]];
-    testGatch.time = 10000;
 
     addEventHandler("onInit", function () {
         local dataShit = "";
@@ -64,6 +59,17 @@ if (SERVER_SIDE)
         catch (errorMsg) {}
 
         //print(dataShit + " |DATA")
+
+        local testGatch = MiningObject();
+        /**
+         * testGatch.id = "sword-farming";
+        testGatch.name = "mining sword"
+        testGatch.position = [0,0,0];
+        testGatch.vobVisual = "MIN_ORE_BIG_V1.3DS";
+        testGatch.require = [["ITMW_1H_SPECIAL_04", MiningRequireType.InHand]];
+        testGatch.resources = [["ITMW_SCHWERT", 2, 100]];
+        testGatch.time = 10000;
+        */
 
         MiningParser.setDataFromString(dataShit, testGatch);
         //TODO: Add save in file support! Then - add multiple loading!

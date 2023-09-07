@@ -23,15 +23,14 @@ MiningSystem <- {
      * @public
      * @description action text what can be displayed on object
      */
-    keyActionText = function () {
+    keyActionText = function (obj_mine) {
         local pos = getPlayerPosition(heroId);
-        local obj_mine = MiningSystem.getMine(pos);
         local obj_name = "???";
         if (obj_mine != null)
             obj_name = obj_mine.name;
         local result = "";
         local text = Loc.getText("mining-key-action");
-        result = text[0] + getKeyLetter(MiningSystem.keyAction) + text[1] + obj_name;
+        result ="[#ffffff]" + text[0] + "[#00ff00]" + getKeyLetter(MiningSystem.keyAction).toupper() + "[#ffffff]" + text[1] + obj_name;
         return result;
     }
 };
@@ -95,18 +94,28 @@ function MiningSystem::onRender() {
 
     _draw = null;
 
-    local obj_mine = MiningSystem.getMine(getPlayerPosition(heroId));
-    if (obj_mine == null)
+    local focusedVob = getFocusVob();
+    if (focusedVob == null)
         return;
 
-    local pos = {x = obj_mine.position[0], y = obj_mine.position[1], z = obj_mine.position[2]};
+    debugText("system.mining.onRenderFocus", "true", 0.1)
+
+    local mineObj = MiningObject.getObjectWithVob(focusedVob);
+    if (mineObj == null)
+        return;
+
+    debugText("system.mining.onRenderFindObj", "true", 0.1)
+
+    local pos = {x = mineObj.position[0], y = mineObj.position[1], z = mineObj.position[2]};
     local projection = Camera.project(pos.x, pos.y + 100, pos.z);
 
     if (projection) {
-        _draw = Draw(4000, 4000, "")
-        _draw.text = MiningSystem.keyActionText();
-        _draw.setPositionPx(projection.x - (_draw.widthPx/2), projection.y);
-        _draw.visible = true;
+        _draw = GUI.Draw({
+            position = {x = 1000, y = 1250}
+            text = MiningSystem.keyActionText(mineObj)
+        })
+        _draw.setPositionPx(projection.x - (_draw.getSizePx().width/2), projection.y);
+        _draw.setVisible(true);
     }
 }
 addEventHandler ("onRender", function () {MiningSystem.onRender()});
@@ -126,9 +135,12 @@ local _doAni = false;
 function MiningSystem::onKey(key) {
     if (isKeyToggled(MiningSystem.keyAction) && !_isMining) {
         local pos = getPlayerPosition(heroId);
-        local objmine = MiningSystem.getMine(pos);
 
-        // find nearest object
+        local focusedVob = getFocusVob();
+        if (focusedVob == null)
+            return;
+
+        local objmine = MiningObject.getObjectWithVob(focusedVob);
         if (objmine == null)
             return;
 
@@ -177,6 +189,7 @@ function MiningSystem::onKey(key) {
         // ahh... You know...
         local packet = Packet();
         packet.writeUInt16(MiningPacketId.TryMining);
+        packet.writeString(objmine.id);
         packet.send(RELIABLE_ORDERED);
     }
 }

@@ -3,6 +3,9 @@
  * @description stamina contain data for specific player
  */
 class StaminaData extends SharedStaminaData {
+# private:
+    _minPassed = 0;
+# public:
     /**
      * @protected
      * @description local database id for specific player
@@ -17,6 +20,26 @@ class StaminaData extends SharedStaminaData {
 
     constructor() {
         getAllData().push(this);
+    }
+
+    /**
+     * @protected
+     * @description used for recovery timer.
+     *
+     * @param {int} num minute what we want add
+     */
+    function addMinute(num) {
+        _minPassed += num;
+    }
+
+    /**
+     * @protected
+     * @description description
+     *
+     * @return {int} minute
+     */
+    function getMinute() {
+        return _minPassed;
     }
 
     /**

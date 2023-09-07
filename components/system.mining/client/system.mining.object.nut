@@ -69,7 +69,7 @@ class MiningObject extends SharedMiningObject {
             _vob = null;
         }
 
-        _vob = Vob(vobVisual);
+        _vob = Mob(vobVisual);
         _vob.setPosition(vobPosition[0], vobPosition[1], vobPosition[2]);
         _vob.setRotation(vobRotation[0], vobRotation[1], vobRotation[2]);
 
@@ -84,6 +84,15 @@ class MiningObject extends SharedMiningObject {
             _vob.cdDynamic = false;
 
 	    _vob.addToWorld();
+    }
+
+    static function getObjectWithVob(ptr) {
+        foreach (obj in MiningObject.getAllObjects()) {
+            print(obj._vob.ptr + "|" +obj._vob.ptr)
+            if (obj._vob.ptr == ptr)
+                return obj;
+        }
+        return null;
     }
 
     static function onPacket(pid, packet) {

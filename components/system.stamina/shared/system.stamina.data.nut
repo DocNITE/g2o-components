@@ -26,4 +26,8 @@ class SharedStaminaData {
     static function getAllData() {
         return _globalData;
     }
+
+    static function getList() {
+        return _globalData;
+    }
 }

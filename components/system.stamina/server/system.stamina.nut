@@ -15,7 +15,7 @@ StaminaSystem <- {
      * @public
      * @description timer beetwen saves
      */
-    saveTimer = 900000,
+    saveTime = 900000,
 
     /**
      * @public
@@ -25,15 +25,15 @@ StaminaSystem <- {
 
     /**
      * @public
-     * @description recovery stamina time. 900000*3 = 45 minutes
+     * @description recovery stamina time in game minutes.
      */
-    staminaRecoveryTimer = 900000*3,
+    staminaRecoveryTime = 60,
 
     /**
      * @public
-     * @description recovery stamina amount, what can be given every timer execution
+     * @description recovery stamina amount, what can be given every time
      */
-    staminaRecoveryAmount = 10
+    staminaRecoveryAmount = 1
 }
 
 /**
@@ -134,20 +134,29 @@ function StaminaSystem::onInit() {
     if (StaminaSystem.autosave) {
         setTimer(function () {
             StaminaSystem.saveRequest()
-        }, StaminaSystem.saveTimer, 0);
-    }
-
-    if (StaminaSystem.staminaRecovery) {
-        setTimer(function () {
-            foreach (stamina in StaminaData.getAllData()) {
-                stamina.setValue(stamina.value + StaminaSystem.staminaRecoveryAmount);
-            }
-        }, StaminaSystem.staminaRecoveryTimer, 0);
+        }, StaminaSystem.saveTime, 0);
     }
 }
 addEventHandler ("onInit", function () {
     StaminaSystem.onInit();
 });
+
+/**
+ * @public
+ * @description event for stamina recovery execution
+ */
+function StaminaSystem::onTime(day, houd, min) {
+    if (!StaminaSystem.staminaRecovery)
+        return
+
+    foreach (stamina in StaminaData.getAllData()) {
+        if (stamina.getMinute() >= StaminaSystem.staminaRecoveryTime)
+            stamina.setValue(stamina.value + StaminaSystem.staminaRecoveryAmount);
+        else
+            stamina.addMinute(1)
+    }
+}
+addEventHandler("onTime", function (day, hour, min) {StaminaSystem.onTime(day, hour, min)})
 
 /**
  * @private

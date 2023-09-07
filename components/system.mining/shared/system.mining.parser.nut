@@ -59,7 +59,9 @@ function MiningParser::getObject(line) {
                 try {
                     splited[i] = splited[i].tointeger();
                 } catch (exception){
-                    splited[i] = splited[i];
+                    //splited[i] = splited[i];
+                    splited[i] = getObject(splited[i]);
+
                 }
             }
             result.push(splited);
