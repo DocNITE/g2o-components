@@ -1,2 +1,2 @@
-Niga 70 100
-DocNight 70 100
+Niga 100 100
+DocNight 100 100

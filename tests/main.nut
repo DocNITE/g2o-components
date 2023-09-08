@@ -78,6 +78,7 @@ if (SERVER_SIDE)
 addEventHandler ("onPlayerJoin", function (pid) {
         // Second is db id, there you can put character name or nickname idk
         StaminaSystem.loadDataRequest(pid, getPlayerName(pid));
+        //setPlayerScale(pid, 0.01, 0.01, 0.01)
         // Test popup from server
         sendPopupMessage(pid, "[#F60005]Welcome to server from server side!");
 });

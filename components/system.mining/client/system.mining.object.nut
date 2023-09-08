@@ -88,7 +88,6 @@ class MiningObject extends SharedMiningObject {
 
     static function getObjectWithVob(ptr) {
         foreach (obj in MiningObject.getAllObjects()) {
-            print(obj._vob.ptr + "|" +obj._vob.ptr)
             if (obj._vob.ptr == ptr)
                 return obj;
         }

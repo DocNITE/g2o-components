@@ -30,7 +30,7 @@ MiningSystem <- {
             obj_name = obj_mine.name;
         local result = "";
         local text = Loc.getText("mining-key-action");
-        result ="[#ffffff]" + text[0] + "[#00ff00]" + getKeyLetter(MiningSystem.keyAction).toupper() + "[#ffffff]" + text[1] + obj_name;
+        result ="[#c4af83]" + text[0] + "[#00ff00]" + getKeyLetter(MiningSystem.keyAction).toupper() + "[#c4af83]" + text[1] + obj_name;
         return result;
     }
 };
