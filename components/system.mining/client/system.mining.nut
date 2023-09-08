@@ -164,6 +164,7 @@ function MiningSystem::onKey(key) {
 
             // AHTUNG!!!: Maybe dirty code. It's, probably, can dupe item. So fix me, if you can!
             // TODO: Should check if equiped item or not. Not equip it shit
+            // So... We chould make some better method.
             if (item[1] == MiningRequireType.InHand)
                 equipItem(heroId, Items.id(item[0]));
         }
