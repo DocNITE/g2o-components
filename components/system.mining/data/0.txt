@@ -1,6 +1,6 @@
 id=$sword-farming-1;
 name=$metal sword tree;
-position=[]0,0,0;
+position=[]0,-50,0;
 world=$NEWWORLD\NEWWORLD.ZEN;
 vobVisual=$MIN_ORE_BIG_V1.3DS;
 vobPhysical=0;

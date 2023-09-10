@@ -33,6 +33,16 @@ class StaminaData extends SharedStaminaData {
     }
 
     /**
+    * @protected
+    * @description used for perm. set recovery timer.
+    *
+    * @param {int} num minute
+    */
+    function setMinute(num) {
+        _minPassed = num;
+    }
+
+    /**
      * @protected
      * @description description
      *

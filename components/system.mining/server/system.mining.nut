@@ -5,6 +5,12 @@ MiningSystem <- {
      * @description how far we can take object
      */
     maxUseDistance = 1000.0,
+
+    /**
+     * @public 
+     * @description max possible objects in game
+     */
+    maxObjects = 256
 }
 
 /**
@@ -35,6 +41,22 @@ function MiningSystem::getMine(pos, world) {
     }
 
     return object;
+}
+
+/**
+ * @public
+ * @description save all mining obj's data from server to database. Actualy use for onExit()
+ */
+function MiningSystem::saveRequest() {
+    callEvent("onMiningDataSaveRequest");
+}
+
+/**
+ * @public
+ * @description load all mining obj's database to server. Actualy used for onInit()
+ */
+function MiningSystem::loadRequest() {
+    callEvent("onMiningDataLoadRequest");
 }
 
 /**
@@ -130,3 +152,32 @@ function MiningSystem::onPacket(player_id, packet) {
     }
 }
 addEventHandler ("onPacket", function (playerid, packet) {MiningSystem.onPacket(playerid, packet);});
+
+/**
+ * @public
+ * @description load objects from data 
+ */
+function MiningSystem::onInit() {
+        // Log initialization
+        print("MiningSystem successfully initialized...")
+
+        // Load data from db
+        MiningSystem.loadRequest()
+
+        // Log how many we load objects
+        print("- Loaded Objects: " + MiningObject.getList().len())
+}
+addEventHandler("onInit", function () {MiningSystem.onInit()});
+
+/**
+ * @public
+ * @description save object to data
+ */
+function MiningSystem::onExit() {
+    // Log exit 
+    print("MiningSystem was shutdown...")
+
+    // Save data to db 
+    MiningSystem.saveRequest()
+}
+addEventHandler("onExit", function () {MiningSystem.onExit()});

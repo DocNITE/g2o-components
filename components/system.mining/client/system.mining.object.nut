@@ -70,6 +70,7 @@ class MiningObject extends SharedMiningObject {
         }
 
         _vob = Mob(vobVisual);
+        _vob.focusOverride = true;
         _vob.setPosition(vobPosition[0], vobPosition[1], vobPosition[2]);
         _vob.setRotation(vobRotation[0], vobRotation[1], vobRotation[2]);
 

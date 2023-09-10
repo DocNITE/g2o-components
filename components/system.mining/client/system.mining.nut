@@ -159,14 +159,26 @@ function MiningSystem::onKey(key) {
         // check require items for mining
         local canMine = false;
         foreach (item in objmine.require) {
-            if (hasItem(heroId, Items.id(item[0])))
+           /*if (hasItem(heroId, Items.id(item[0]))) {
+                if (item[1] == MiningRequireType.NonHand) {
+                   canMine = true
+                } else if (item[1] == MiningRequireType.InHand && 
+                            getPlayerMeleeWeapon(heroId) == Items.id(item[0]) &&
+                            (getPlayerWeaponMode(heroId) == WEAPONMODE_1HS ||
+                            getPlayerWeaponMode(heroId) == WEAPONMODE_2HS)) {
+                    canMine = true
+                }
+            } */ 
+
+            if (hasItem(heroId, Items.id(item[0]))) 
                 canMine = true;
 
             // AHTUNG!!!: Maybe dirty code. It's, probably, can dupe item. So fix me, if you can!
             // TODO: Should check if equiped item or not. Not equip it shit
             // So... We chould make some better method.
-            if (item[1] == MiningRequireType.InHand)
+            if (item[1] == MiningRequireType.InHand) {
                 equipItem(heroId, Items.id(item[0]));
+            } 
         }
 
         if (objmine.require.len() <= 0)

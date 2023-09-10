@@ -128,6 +128,9 @@ function StaminaSystem::getMaxValue(player_id) {
  * @description default events for initialization stamina data
  */
 function StaminaSystem::onInit() {
+    // Log initialization
+    print("StaminaSystem successfully initialized...")
+    
     if (StaminaSystem.autoload)
         StaminaSystem.loadRequest();
 
@@ -136,6 +139,9 @@ function StaminaSystem::onInit() {
             StaminaSystem.saveRequest()
         }, StaminaSystem.saveTime, 0);
     }
+
+    // Log amount 
+    print("- Entity's Stamina Data: " + StaminaData.getAllData().len())
 }
 addEventHandler ("onInit", function () {
     StaminaSystem.onInit();
@@ -150,10 +156,12 @@ function StaminaSystem::onTime(day, houd, min) {
         return
 
     foreach (stamina in StaminaData.getAllData()) {
-        if (stamina.getMinute() >= StaminaSystem.staminaRecoveryTime)
+        if (stamina.getMinute() >= StaminaSystem.staminaRecoveryTime) {
             stamina.setValue(stamina.value + StaminaSystem.staminaRecoveryAmount);
-        else
+            stamina.setMinute(0) 
+        } else {
             stamina.addMinute(1)
+        }
     }
 }
 addEventHandler("onTime", function (day, hour, min) {StaminaSystem.onTime(day, hour, min)})
@@ -163,6 +171,9 @@ addEventHandler("onTime", function (day, hour, min) {StaminaSystem.onTime(day, h
  * @description default events for saving stamina data
  */
 function StaminaSystem::onExit() {
+    // Log exit 
+    print("StaminaSystem was shutdown...")
+
     if (StaminaSystem.autosave)
         StaminaSystem.saveRequest();
 }

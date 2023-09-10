@@ -1,3 +1,10 @@
+local dataPath      = "components/system.mining/data/"
+local dataFormat    = ".txt"
+
+/**
+ * @protected
+ * @description server side class implementation
+ */
 class MiningObject extends SharedMiningObject {
     canSave = true;
 
@@ -51,12 +58,66 @@ class MiningObject extends SharedMiningObject {
     static function onPacket(pid, packet) {}
 }
 
+/**
+ * @private
+ * @description 
+ */
+addEventHandler("onMiningDataSaveRequest", function() {
+    local objList = MiningObject.getList()
+    for (local i = 0; i < objList.len(); i++) {
+        try 
+        {
+            local objMine = objList[i]
+            if (objMine == null)
+                continue
+
+            print(objMine)
+            //local fileSave = file(dataPath + i + ".txt", "w")
+            // TODO: Make parser saving
+        }
+        catch (errorMsg) {}
+    }
+})
+
+/**
+ * @private 
+ * @description 
+ */
+addEventHandler("onMiningDataLoadRequest", function() {
+        for(local i = 0; i < MiningSystem.maxObjects; i++) {
+            try
+            {
+                local fileLoad = file(dataPath + i + ".txt", "r");
+                local data = "";
+                local line = "";
+                while (line != null) {
+                    line = fileLoad.read("l");
+                    if (line != null)
+                        data = data + line;
+                }
+
+                fileLoad.close();
+                local objMine = MiningObject(); 
+                MiningParser.setDataFromString(data, objMine);
+            } 
+            catch (errorMsg) {}
+        }
+})
+
+/**
+ * @private
+ * @description sync objects for new connected player 
+ */
 addEventHandler ("onPlayerJoin", function (pid) {
     foreach (obj in MiningObject.getAllObjects()) {
         obj.sync(pid);
     }
 });
 
+/** 
+ * @private
+ * @description some network sync from client
+ */
 addEventHandler ("onPacket", function (pid, packet) {
     MiningObject.onPacket(pid, packet)
 });

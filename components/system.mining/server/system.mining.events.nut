@@ -1,0 +1,2 @@
+addEvent("onMiningDataSaveRequest")
+addEvent("onMiningDataLoadRequest")

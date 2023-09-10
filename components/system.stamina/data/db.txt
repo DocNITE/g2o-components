@@ -1,1 +1,1 @@
-DocNight 90 100
+DocNight 85 100
