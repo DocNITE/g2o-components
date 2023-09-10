@@ -72,7 +72,7 @@ addEventHandler("onMiningDataSaveRequest", function() {
                 continue
 
             print(objMine)
-            //local fileSave = file(dataPath + i + ".txt", "w")
+            //local fileSave = file(dataPath + i + dataFormat, "w")
             // TODO: Make parser saving
         }
         catch (errorMsg) {}
@@ -87,7 +87,7 @@ addEventHandler("onMiningDataLoadRequest", function() {
         for(local i = 0; i < MiningSystem.maxObjects; i++) {
             try
             {
-                local fileLoad = file(dataPath + i + ".txt", "r");
+                local fileLoad = file(dataPath + i + dataFormat, "r");
                 local data = "";
                 local line = "";
                 while (line != null) {
