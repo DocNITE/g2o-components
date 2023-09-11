@@ -14,6 +14,8 @@ _ <-
 
 _["mining-key-action"] <- ["press ", " for mining "]
 
+_["mining-hit-action"] <- ["[#cc0014]hit [#ffffff]", " for mining"]
+
 _["mining-too-far"] <- "[#cc0014]too far for mining!"
 
 _["mining-not-enough-stamina"] <- "[#cc2c00]not enough stamina!"

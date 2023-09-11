@@ -38,6 +38,21 @@ MiningSystem <- {
         local text = Loc.getText("mining-key-action");
         result ="[#ffffff]" + text[0] + "[#00ff00]" + getKeyLetter(MiningSystem.keyAction).toupper() + "[#ffffff]" + text[1] + obj_name;
         return result;
+    },
+
+    /**
+     * @public 
+     * @description action text for hit typed object
+     */
+    hitActionText = function (obj_mine) {
+        local obj_name = "???";
+        if (obj_mine != null)
+            obj_name = obj_mine.name;
+
+        local text = Loc.getText("mining-hit-action")
+        local result = ""
+        result = text[0] + obj_name + text[1]
+        return result
     }
 };
 
@@ -111,14 +126,27 @@ function MiningSystem::onRender() {
         return;
 
     debugText("system.mining.onRenderFindObj", "true", 0.1)
+    
+ 
+    local isInHand = false;
+    foreach (item in mineObj.require) {
+
+        if (item[1] == MiningRequireType.InHand) { 
+            isInHand = true;
+            break
+        }
+    }
 
     local pos = {x = mineObj.position[0], y = mineObj.position[1], z = mineObj.position[2]};
     local projection = Camera.project(pos.x, pos.y + 100, pos.z);
 
     if (projection) {
+        local actionText = MiningSystem.keyActionText(mineObj)
+        if (isInHand) 
+            actionText = MiningSystem.hitActionText(mineObj)
         _draw = GUI.Draw({
             position = {x = 1000, y = 1250}
-            text = MiningSystem.keyActionText(mineObj)
+            text = actionText
         })
         _draw.setPositionPx(projection.x - (_draw.getSizePx().width/2), projection.y);
         _draw.setVisible(true);
@@ -159,17 +187,6 @@ function MiningSystem::onKey(key) {
         // check require items for mining
         local canMine = false;
         foreach (item in objmine.require) {
-           /*if (hasItem(heroId, Items.id(item[0]))) {
-                if (item[1] == MiningRequireType.NonHand) {
-                   canMine = true
-                } else if (item[1] == MiningRequireType.InHand && 
-                            getPlayerMeleeWeapon(heroId) == Items.id(item[0]) &&
-                            (getPlayerWeaponMode(heroId) == WEAPONMODE_1HS ||
-                            getPlayerWeaponMode(heroId) == WEAPONMODE_2HS)) {
-                    canMine = true
-                }
-            } */ 
-
             if (hasItem(heroId, Items.id(item[0])) && item[1] != MiningRequireType.InHand) 
                 canMine = true;
 
