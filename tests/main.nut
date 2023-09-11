@@ -1,5 +1,10 @@
+local draw = null;
+
 if (CLIENT_SIDE)
 {
+
+
+
 addEventHandler("onInit", function () {
     // Enabled debug drawing
     GuiSystem.canDrawDebug = true;

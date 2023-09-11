@@ -6,11 +6,11 @@ vobVisual=$MIN_ORE_BIG_V1.3DS;
 vobPhysical=0;
 vobPosition=[]0,0,0;
 vobRotation=[]0,0,0;
-animation=$T_PLUNDER;
+animation=$NULL;
 triggerDistance=200;
 actionDistance=400;
 price=5;
-time=3000;
+time=500;
 avaible=4;
 require={}
 $ITMW_1H_SPECIAL_04|1

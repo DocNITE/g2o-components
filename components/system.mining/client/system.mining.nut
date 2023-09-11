@@ -1,3 +1,9 @@
+local _isMining = false;
+local _ptr = null;
+local _ani = "";
+local _doAni = false;
+local _doHit = true;
+
 MiningSystem <- {
     /**
      * @public
@@ -30,7 +36,7 @@ MiningSystem <- {
             obj_name = obj_mine.name;
         local result = "";
         local text = Loc.getText("mining-key-action");
-        result ="[#c4af83]" + text[0] + "[#00ff00]" + getKeyLetter(MiningSystem.keyAction).toupper() + "[#c4af83]" + text[1] + obj_name;
+        result ="[#ffffff]" + text[0] + "[#00ff00]" + getKeyLetter(MiningSystem.keyAction).toupper() + "[#ffffff]" + text[1] + obj_name;
         return result;
     }
 };
@@ -100,7 +106,7 @@ function MiningSystem::onRender() {
 
     debugText("system.mining.onRenderFocus", "true", 0.1)
 
-    local mineObj = MiningObject.getObjectWithVob(focusedVob);
+    local mineObj = MiningObject.getObjectWithVobPtr(focusedVob);
     if (mineObj == null)
         return;
 
@@ -126,12 +132,6 @@ addEventHandler ("onRender", function () {MiningSystem.onRender()});
  *
  * @param {int} key keyboard key lol
  */
-
-local _isMining = false;
-local _ptr = null;
-local _ani = "";
-local _doAni = false;
-
 function MiningSystem::onKey(key) {
     if (isKeyToggled(MiningSystem.keyAction) && !_isMining) {
         local pos = getPlayerPosition(heroId);
@@ -140,7 +140,7 @@ function MiningSystem::onKey(key) {
         if (focusedVob == null)
             return;
 
-        local objmine = MiningObject.getObjectWithVob(focusedVob);
+        local objmine = MiningObject.getObjectWithVobPtr(focusedVob);
         if (objmine == null)
             return;
 
@@ -170,14 +170,13 @@ function MiningSystem::onKey(key) {
                 }
             } */ 
 
-            if (hasItem(heroId, Items.id(item[0]))) 
+            if (hasItem(heroId, Items.id(item[0])) && item[1] != MiningRequireType.InHand) 
                 canMine = true;
 
-            // AHTUNG!!!: Maybe dirty code. It's, probably, can dupe item. So fix me, if you can!
-            // TODO: Should check if equiped item or not. Not equip it shit
-            // So... We chould make some better method.
             if (item[1] == MiningRequireType.InHand) {
-                equipItem(heroId, Items.id(item[0]));
+                //equipItem(heroId, Items.id(item[0]));
+                canMine = false;
+                break;
             } 
         }
 
@@ -217,6 +216,7 @@ function MiningSystem::onMining() {
     playAni(heroId, _ani);
     setFreeze(true);
     _doAni = true;
+    _doHit = false
 
     local pos = getPlayerPosition(heroId);
     local angle = getVectorAngle(pos.x, pos.z, _ptr.position[0], _ptr.position[2]);
@@ -233,6 +233,7 @@ function MiningSystem::onEndMining() {
     setFreeze(false);
     _doAni = false;
     _ptr = null;
+    _doHit = true
 }
 
 /**
@@ -257,11 +258,70 @@ addEventHandler ("onPacket", function (packet) {MiningSystem.onPacket(packet);})
  * @public
  * @description used for animation cycling. Can be override ofc
  */
-function MiningSystem::onAniRender() {
-    // If it empty - we dont need play animations
+function MiningSystem::onAniRender() { 
     if (_doAni) {
         if (!getPlayerAni(heroId) == _ani)
             playAni(heroId, _ani);
     }
 }
 addEventHandler ("onRender", function () {MiningSystem.onAniRender();});
+
+/**
+ * @public
+ * @description used for hit detection on mining obj (need fow ore, woods and something)
+ */
+function MiningSystem::onHitRender() {
+    if (!_doHit)
+        return 
+    //FIXME: That code might be bugged in some line. So, need review it.
+    local pos = getPlayerPosition(heroId)
+
+    local playerVob = Vob(getPlayerPtr(heroId));
+    local trafo = playerVob.getTrafoModelNodeToWorld("ZS_RIGHTHAND")
+    local trafoPos = trafo.getTranslation()
+    local itemName = Items.name(getPlayerMeleeWeapon(heroId)) 
+    local instance = Daedalus.instance(itemName)
+    local trace = GameWorld.traceRayNearestHit(Vec3(trafoPos.x, trafoPos.y, trafoPos.z), trafo.getRightVector() * (instance.range), TRACERAY_VOB_IGNORE_CHARACTER | TRACERAY_VOB_IGNORE_PROJECTILES | TRACERAY_POLY_NORMAL)
+
+    if (trace && getPlayerBodyState(heroId) == BS_HIT) {
+        debugText("system.mining.onHitFinded", trace.vob, 5.0)
+       
+        local objMine = MiningObject.getObjectWithVobPtr(trace.vob)
+        if (objMine == null)
+            return;
+
+        debugText("system.mining.onHitObjectFinded", objMine, 5.0)
+
+        if (StaminaSystem.getValue() < objMine.price) {
+           // sendPopupMessage(Loc.getText("mining-not-enough-stamina"));
+            return;
+        }
+
+        // check require items for mining
+        local canMine = false;
+        foreach (item in objMine.require) {
+
+            if (item[0] == itemName && item[1] == MiningRequireType.InHand) { 
+                canMine = true;
+                break
+            }
+        }
+
+        if (!canMine) 
+            return
+
+        debugText("system.mining.onHitObject", objMine.name, 5.0)
+        
+        _ptr = objMine
+        _ani = objMine.animation
+            
+        // ahh... You know...
+        local packet = Packet();
+        packet.writeUInt16(MiningPacketId.TryMining);
+        packet.writeString(objMine.id);
+        packet.send(RELIABLE_ORDERED);
+
+        _doHit = false
+    }    
+}
+addEventHandler("onRender", function () {MiningSystem.onHitRender()})

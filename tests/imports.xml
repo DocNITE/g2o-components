@@ -1,4 +1,5 @@
 <server>
 	<script src="main.nut" type="shared" />
 	<script src="ux_vob_trigger_test.nut" type="shared" />
+	<!--<script src="draw.nut" type="client" />-->
 </server>

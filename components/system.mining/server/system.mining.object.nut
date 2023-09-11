@@ -32,6 +32,7 @@ class MiningObject extends SharedMiningObject {
         packet.writeFloat(vobRotation[0]);
         packet.writeFloat(vobRotation[1]);
         packet.writeFloat(vobRotation[2]);
+        packet.writeString(animation);
         packet.writeUInt16(triggerDistance);
         packet.writeUInt16(actionDistance);
         packet.writeUInt16(price);
