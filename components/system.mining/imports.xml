@@ -1,0 +1,14 @@
+<server>
+	<script src="data/en-US.nut" type="shared" />
+	<!-- Shared side -->
+	<script src="shared/system.mining.packet.id.nut" type="shared" />
+	<script src="shared/system.mining.parser.nut" type="shared" />
+	<script src="shared/system.mining.object.nut" type="shared" />
+	<!-- Client side -->
+	<script src="client/system.mining.object.nut" type="client" />
+	<script src="client/system.mining.nut" type="client" />
+	<!-- Server side -->
+	<script src="server/system.mining.events.nut" type="server" />
+	<script src="server/system.mining.object.nut" type="server" />
+	<script src="server/system.mining.nut" type="server" />
+</server>

@@ -1,0 +1,13 @@
+<server>
+	<!-- Shared side -->
+	<script src="shared/system.stamina.packet.id.nut" type="shared" />
+	<script src="shared/system.stamina.data.nut" type="shared" />
+	<!-- Client side -->
+	<script src="client/system.stamina.events.nut" type="client" />
+	<script src="client/system.stamina.data.nut" type="client" />
+	<script src="client/system.stamina.nut" type="client" />
+	<!-- Server side -->
+	<script src="server/system.stamina.events.nut" type="server" />
+	<script src="server/system.stamina.data.nut" type="server" />
+	<script src="server/system.stamina.nut" type="server" />
+</server>

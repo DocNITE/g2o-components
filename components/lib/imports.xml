@@ -1,0 +1,4 @@
+<server>
+    <import src="gui-framework/gui.xml"/>
+    <import src="tween.nut/tween.xml"/>
+</server>

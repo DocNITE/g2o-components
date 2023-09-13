@@ -1,9 +1,0 @@
-<server>
-  <!-- Development! -->
-	<script src="client/debug/main.nut" type="client" />
-	<script src="server/debug/main.nut" type="server" />
-
-	<!-- Client side -->
-	<!-- Server side -->
-	<!-- Shared side -->
-</server>

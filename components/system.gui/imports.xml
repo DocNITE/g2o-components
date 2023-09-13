@@ -1,0 +1,10 @@
+<server>
+    <script src="shared/system.gui.packet.id.nut" type="shared" />
+
+    <script src="client/system.gui.nut" type="client" />
+    <script src="client/system.gui.debug.nut" type="client" />
+    <script src="client/system.gui.popup.nut" type="client" />
+
+    <script src="server/system.gui.nut" type="server" />
+    <script src="server/system.gui.popup.nut" type="server" />
+</server>
