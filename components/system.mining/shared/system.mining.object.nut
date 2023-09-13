@@ -104,7 +104,33 @@ class SharedMiningObject {
      * @description Items what can be given from object (instance, amount, chance(%)) (give only on server)
      */
     resources = [];
-
+    
+    /**
+     * @public 
+     * @description Get table of all class data
+     */
+    function getTable() {
+        return {
+            id = id,
+            name = name,
+            position = position,
+            world = world,
+            vobVisual = vobVisual,
+            vobPhysical = vobPhysical,
+            vobCdDynamic = vobCdDynamic,
+            vobPosition = vobPosition,
+            vobRotation = vobRotation,
+            animation = animation,
+            triggerDistance = triggerDistance,
+            actionDistance = actionDistance,
+            price = price,
+            time = time,
+            avaible = avaible,
+            require = require,
+            resources = resources
+        }
+    }
+        
     /**
      * @protected
      * @description Access to global objects store

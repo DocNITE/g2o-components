@@ -10,6 +10,7 @@ class MiningObject extends SharedMiningObject {
 
     constructor() {
         this.getAllObjects().push(this);
+        id = this.getAllObjects().len()-1
     }
 
     function sync(pid) {
@@ -52,11 +53,26 @@ class MiningObject extends SharedMiningObject {
         packet = null;
     }
 
-    static function loadFromFile(file) {
+    function destroy() {
+        local packet = Packet()
+        packet.writeString(id)
 
+        local arr = this.getAllObjects()
+        local arrCount = arr.len()
+        for(local i = 0; i < arrCount; i++) {
+            if (arr[i] == this) {
+                arr.remove(i)
+                break;
+            }
+        }
+
+        packet.sendToAll(RELIABLE_ORDERED)
+        packet = null
+
+        local fileSave = file(dataPath + id + dataFormat, "w")
+        fileSave.write("")
+        fileSave.close()
     }
-
-    static function onPacket(pid, packet) {}
 }
 
 /**
@@ -71,10 +87,13 @@ addEventHandler("onMiningDataSaveRequest", function() {
             local objMine = objList[i]
             if (objMine == null)
                 continue
+          
+            local tbl = objMine.getTable()
+            local result = MiningParser.setDataToString(tbl)
+            local fileSave = file(dataPath + tbl.id + dataFormat, "w")
 
-            print(objMine)
-            //local fileSave = file(dataPath + i + dataFormat, "w")
-            // TODO: Make parser saving
+            fileSave.write(result)
+            fileSave.close()
         }
         catch (errorMsg) {}
     }
@@ -98,6 +117,10 @@ addEventHandler("onMiningDataLoadRequest", function() {
                 }
 
                 fileLoad.close();
+
+                if (data.len() <= 0)
+                    continue
+
                 local objMine = MiningObject(); 
                 MiningParser.setDataFromString(data, objMine);
             } 
@@ -115,10 +138,3 @@ addEventHandler ("onPlayerJoin", function (pid) {
     }
 });
 
-/** 
- * @private
- * @description some network sync from client
- */
-addEventHandler ("onPacket", function (pid, packet) {
-    MiningObject.onPacket(pid, packet)
-});

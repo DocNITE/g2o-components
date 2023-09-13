@@ -10,6 +10,53 @@ enum MiningRequireType {
 
 MiningParser <- {};
 
+function MiningParser::setDataToString(data) {
+    local result = ""
+    foreach (k, v in data) {
+       result = result + MiningParser.setKey(k, v) + ";\n" 
+    }
+    return result
+}
+
+function MiningParser::setKey(key, value) {
+    local result = key + "="
+    result = result + MiningParser.setObject(value)
+    return result
+}
+
+function MiningParser::setObject(value) {
+   if (typeof value == "string") {
+        return "$" + value
+   } else if (typeof value == "integer") {
+        return value
+   } else if (typeof value == "array") {
+        local result = ""
+
+        if (value.len() > 0 && typeof value[0] == "array") {
+            result = result + "{}"
+        } else if (value.len() > 0 && typeof value[0] != "array") {
+            result = result + "[]"
+        } else {
+            result = result + "{}"
+        }
+
+        foreach (val in value) {
+            if (typeof val == "array") {
+                // shit code
+                foreach (v in val) {
+                    result = result + MiningParser.setObject(v) + "|"
+                }
+                result = result + ","
+            } else {
+                result = result + MiningParser.setObject(val)
+                result = result + ","
+            }
+        } 
+
+        return result
+   }
+}
+
 function MiningParser::getDataFromString(data) {
     local resultData = {};
 

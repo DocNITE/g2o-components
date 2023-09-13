@@ -45,7 +45,6 @@ addEventHandler("onRender", function () {
 }
 if (SERVER_SIDE)
 {
-
     addEventHandler("onInit", function () {
                 //TODO: Add save in file support! Then - add multiple loading!
     })

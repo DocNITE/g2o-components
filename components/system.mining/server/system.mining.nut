@@ -14,6 +14,46 @@ MiningSystem <- {
 }
 
 /**
+ * @public 
+ * @description Create a new mining object 
+ *
+ * @param {table} arg Is our data, what we want set on object 
+ */
+function MiningSystem::createMine(arg) {
+    local obj = MiningObject()
+    MiningSystem.changeMine(obj, arg)
+}
+
+/**
+ * @public
+ * @description Change data for mining object 
+ *
+ * @param {MiningObject} obj Existin' mining object
+ * @param {table} arg Is our data, what we want set on object  
+ */
+function MiningSystem::changeMine(obj, arg) {
+    obj.id = "id" in arg ? arg.id : obj.id
+    obj.name = "name" in arg ? arg.name : obj.name
+    obj.position = "position" in arg ? arg.position : obj.position
+    obj.world = "world" in arg ? arg.world : obj.world
+    obj.vobVisual = "vobVisual" in arg ? arg.vobVisual : obj.vobVisual
+    obj.vobPhysical = "vobPhysical" in arg ? arg.vobPhysical : obj.vobPhysical
+    obj.vobCdDynamic = "vobCdDynamic" in arg ? arg.vobCdDynamic : obj.vobCdDynamic
+    obj.vobPosition = "vobPosition" in arg ? arg.vobPosition : obj.vobPosition
+    obj.vobRotation = "vobRotation" in arg ? arg.vobRotation : obj.vobRotation
+    obj.animation = "animation" in arg ? arg.animation : obj.animation 
+    obj.triggerDistance = "triggerDistance" in arg ? arg.triggerDistance : obj.triggerDistance
+    obj.actionDistance = "actionDistance" in arg ? arg.actionDistance : obj.actionDistance
+    obj.price = "price" in arg ? arg.price : obj.price
+    obj.time = "time" in arg ? arg.time : obj.time
+    obj.avaible = "avaible" in arg ? arg.avaible : obj.avaible
+    obj.require = "require" in arg ? arg.require : obj.require
+    obj.resources = "resources" in arg ? arg.resources : obj.resources
+    
+    MiningSystem.saveRequest()
+}
+
+/**
  * @public
  * @description get near mining object for entity
  *

@@ -136,7 +136,10 @@ function MiningSystem::onRender() {
             break
         }
     }
-
+    // TODO: Need make next focus text:
+    //          Name Object 
+    //       hit for mining
+    // or     press G for mining
     local pos = {x = mineObj.position[0], y = mineObj.position[1], z = mineObj.position[2]};
     local projection = Camera.project(pos.x, pos.y + 100, pos.z);
 
