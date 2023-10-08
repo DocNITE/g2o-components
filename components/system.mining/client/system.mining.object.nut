@@ -40,16 +40,14 @@ class MiningObject extends SharedMiningObject {
         price = packet.readUInt16();
         time = packet.readUInt16();
         avaible = packet.readUInt16();
-
         for (local i = 0; i < packet.readUInt8(); i++) {
             local soValue = [packet.readString(), packet.readUInt8()];
             require.push(soValue);
         }
         for (local i = 0; i < packet.readUInt8(); i++) {
-            local soValue = [packet.readString(), packet.readUInt8()];
+            local soValue = [packet.readString(), packet.readUInt8(), packet.readUInt8()];
             resources.push(soValue);
         }
-
         // Create vob visual
         createVisual();
     }
@@ -112,7 +110,11 @@ class MiningObject extends SharedMiningObject {
                     // Create object for client
                     local newObject = MiningObject();
                     newObject.create(packet);
-                    MiningObject.getAllObjects().push(newObject);
+                    MiningObject.getAllObjects().append(newObject);
+                    // TODO: Something wrong with positioning
+                    // And, that shit was copy data to another object. Idk why...
+                   // print(MiningObject.getList()[0].position[2])
+                   // print(MiningObject.getList()[1].position[2])
                     break;
                 case MiningPacketId.Destroy:
                     // Destroy object with id field

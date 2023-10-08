@@ -49,7 +49,8 @@ function MiningSystem::changeMine(obj, arg) {
     obj.avaible = "avaible" in arg ? arg.avaible : obj.avaible
     obj.require = "require" in arg ? arg.require : obj.require
     obj.resources = "resources" in arg ? arg.resources : obj.resources
-    
+    obj.sync()    
+
     MiningSystem.saveRequest()
 }
 

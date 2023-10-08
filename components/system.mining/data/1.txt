@@ -1,0 +1,17 @@
+vobCdDynamic=0;
+price=5;
+actionDistance=400;
+avaible=30;
+time=1000;
+vobVisual=$MIN_ORE_BIG_V1.3DS;
+require={}$ITMW_SCHWERT|1|,;
+world=$NEWWORLD\NEWWORLD.ZEN;
+vobPhysical=0;
+animation=$T_PLUNDER;
+id=$1;
+name=$some shit lol;
+position=[]0,50,-600,;
+resources={}$ITMW_SCHWERT|1|100|,;
+triggerDistance=200;
+vobRotation=[]0,0,0,;
+vobPosition=[]0,50,-600,;

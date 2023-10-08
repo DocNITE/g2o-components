@@ -11,9 +11,10 @@ class MiningObject extends SharedMiningObject {
     constructor() {
         this.getAllObjects().push(this);
         id = this.getAllObjects().len()-1
+        id = id.tostring()
     }
 
-    function sync(pid) {
+    function sync(pid = null) {
         if (!SERVER_SIDE)
             return;
 
@@ -48,13 +49,20 @@ class MiningObject extends SharedMiningObject {
         foreach (value in resources) {
             packet.writeString(value[0]);
             packet.writeUInt8(value[1]);
+            packet.writeUInt8(value[2]);
         }
-        packet.send(pid, RELIABLE_ORDERED);
+        // So, for normal way - we always should set value for pid = playerid
+        // Or, if we wanna send sync packet for all clients - set null
+        if (pid != null)
+            packet.send(pid, RELIABLE_ORDERED);
+        else 
+            packet.sendToAll(RELIABLE_ORDERED);
         packet = null;
     }
 
     function destroy() {
         local packet = Packet()
+        packet.writeUInt16(MiningPacketId.Destroy)
         packet.writeString(id)
 
         local arr = this.getAllObjects()
