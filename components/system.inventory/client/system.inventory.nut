@@ -12,7 +12,7 @@ InventorySystem <- {
   screen resolution, like original game!
 */
 InventorySystem.INV_MAX_SLOTS_COL <- 5
-InventorySystem.INV_MAX_SLOTS_ROW <- 2
+InventorySystem.INV_MAX_SLOTS_ROW <- 7
 
 /*
   src: oInventory.cpp  line: 91
@@ -59,8 +59,21 @@ InventorySystem.INV_AMOUNT_TEXT_PADDING <- 10;
 /*
   Size rows for screen height resolution
 */
-InventorySystem.sizeableRows <- true
+InventorySystem.INV_SIZEABLE_HEIGHT <- true
 
-addEventListener("onInit", function () {
+/*
+  Drawing UI and something render content for container
+*/
+function InventorySystem::onRender() {
+  if (InventorySystem.openedContainer == null)
+    return
+
+  local dt = getTickCount()
+  InventorySystem.openedContainer.onRender(dt);
+}
+addEventHandler("onRender", function () {InventorySystem.onRender()})
+
+
+addEventHandler("onInit", function () {
     print("system.inventory was running!")
-  })
+})
