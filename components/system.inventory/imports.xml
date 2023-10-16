@@ -1,0 +1,7 @@
+<server>
+	<!-- Client side -->
+	<script src="client/system.inventory.types.nut" type="client" />
+	<script src="client/system.inventory.nut" type="client" />
+	<script src="client/system.inventory.container.nut" type="client" />
+</server>
+

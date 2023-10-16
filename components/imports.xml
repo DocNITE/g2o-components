@@ -6,4 +6,5 @@
 	<import src="system.gui/imports.xml"/>
 	<import src="system.mining/imports.xml"/>
 	<import src="system.stamina/imports.xml"/>
+	<import src="system.inventory/imports.xml"/>
 </server>
