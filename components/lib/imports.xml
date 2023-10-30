@@ -1,4 +1,5 @@
 <server>
     <import src="gui-framework/gui.xml"/>
     <import src="tween.nut/tween.xml"/>
+    <import src="bpackets/meta.xml"/>
 </server>

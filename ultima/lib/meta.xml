@@ -1,0 +1,3 @@
+<server>
+  <import src="becs/meta.xml" />
+</server>

@@ -3,6 +3,11 @@ InventorySystem <- {
     Used in currently time container
   */
   openedContainer = null
+
+  /*
+    Player's local inventory conatiner
+  */
+  playerContainer = InvContainer()
 }
 
 /*
@@ -53,13 +58,25 @@ InventorySystem.INV_SCALE_X <- 800;
 InventorySystem.INV_SCALE_Y <- 600;
 
 InventorySystem.INV_PADDING <- 32;
+InventorySystem.INV_ITEM_SELECTED_PADDING <- 10;
+InventorySystem.INV_ITEM_INFO_PADDING <- 32;
 
-InventorySystem.INV_AMOUNT_TEXT_PADDING <- 10;
+InventorySystem.INV_ITEM_TEXT_PADDING <- 5;
 
 /*
   Size rows for screen height resolution
 */
 InventorySystem.INV_SIZEABLE_HEIGHT <- true
+
+/*
+  Initialize system and some preferences
+*/
+function InventorySystem::onInit() {
+  InventorySystem.playerContainer.npc = heroId
+  // FOR TESTING
+  InventorySystem.openedContainer = InventorySystem.playerContainer;
+}
+addEventHandler("onInit", function () {InventorySystem.onInit()})
 
 /*
   Drawing UI and something render content for container
@@ -68,10 +85,27 @@ function InventorySystem::onRender() {
   if (InventorySystem.openedContainer == null)
     return
 
+  // gen inventory for player
+  InventorySystem.playerContainer.contents = []
+  foreach (item in getEq()) {
+    InventorySystem.playerContainer.contents.push(InvItem(item.instance, item.amount, item.name));
+  }
+
   local dt = getTickCount()
-  InventorySystem.openedContainer.onRender(dt);
+  InventorySystem.openedContainer.onRender(dt)
 }
 addEventHandler("onRender", function () {InventorySystem.onRender()})
+
+/*
+  Do some input logic from keyboard
+*/
+function InventorySystem::onKey(key) {
+  if (InventorySystem.openedContainer == null)
+    return
+
+  InventorySystem.openedContainer.onKey(key)
+}
+addEventHandler("onKey", function (key) {InventorySystem.onKey(key)})
 
 
 addEventHandler("onInit", function () {

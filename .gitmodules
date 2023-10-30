@@ -4,3 +4,9 @@
 [submodule "components/lib/tween.nut"]
 	path = components/lib/tween.nut
 	url = https://gitlab.com/g2o/scripts/tween.nut.git
+[submodule "components/lib/bpackets"]
+	path = components/lib/bpackets
+	url = https://gitlab.com/bcore1/bpackets.git
+[submodule "ultima/lib/becs"]
+	path = ultima/lib/becs
+	url = https://gitlab.com/bcore1/becs.git

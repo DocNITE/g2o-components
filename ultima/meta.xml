@@ -1,0 +1,9 @@
+<server>
+  <!-- rendering -->
+  <script src="r_viewport.nut" type="client" />
+  <!-- integration tests -->
+  <import src="tests/meta.xml" />
+  <!-- entrypoint -->
+	<script src="main.nut" type="client" />
+</server>
+

@@ -1,7 +1,6 @@
 if (CLIENT_SIDE)
 {
   addEventHandler("onInit", function() {
-          InventorySystem.openedContainer = InvContainer();
           print("test is uppun!")
       })
 }
