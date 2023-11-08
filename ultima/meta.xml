@@ -1,6 +1,10 @@
 <server>
+  <script src="g2o_api.nut" type="client" />
+  <script src="cfg.nut" type="client" />
   <!-- rendering -->
   <script src="r_viewport.nut" type="client" />
+  <script src="r_draw.nut" type="client" />
+  <script src="r_main.nut" type="client" />
   <!-- integration tests -->
   <import src="tests/meta.xml" />
   <!-- entrypoint -->
